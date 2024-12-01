@@ -72,7 +72,7 @@ class ChadwmProfile(XorgProfile):
             'rofi-lbonn-wayland',
             'sparklines-git',
             'sublime-text-4',
-            'surfn-icons-git'
+            'surfn-icons-git',
             'sxhkd',
             'thunar',
             'thunar-archive-plugin',

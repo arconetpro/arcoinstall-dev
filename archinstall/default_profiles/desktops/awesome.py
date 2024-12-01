@@ -53,7 +53,7 @@ class AwesomeProfile(XorgProfile):
 			'polkit-gnome',
 			'rofi-lbonn-wayland',
 			'slock',
-            'surfn-icons-git'
+            'surfn-icons-git',
 			'terminus-font',
 			'thunar',
 			'thunar-archive-plugin',
