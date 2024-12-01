@@ -23,7 +23,7 @@ class AwesomeProfile(XorgProfile):
 			'arcolinux-awesome-git',
 			'arcolinux-config-all-desktops-git',
 			'arcolinux-dconf-all-desktops-git',
-			'arcolinux-gtk3-sardi-arc-git',
+			'arcolinux-gtk3-surfn-arc-git',
 			'arcolinux-keyring',
 			'arcolinux-local-xfce4-git',
 			'arcolinux-mirrorlist-git',
@@ -53,6 +53,7 @@ class AwesomeProfile(XorgProfile):
 			'polkit-gnome',
 			'rofi-lbonn-wayland',
 			'slock',
+            'surfn-icons-git'
 			'terminus-font',
 			'thunar',
 			'thunar-archive-plugin',

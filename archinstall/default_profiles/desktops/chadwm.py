@@ -27,6 +27,7 @@ class ChadwmProfile(XorgProfile):
             'arcolinux-chadwm-git',
             'arcolinux-chadwm-pacman-hook-git',
             'arcolinux-fastfetch-git',
+            'arcolinux-gtk3-surfn-arc-git',
             'arcolinux-hblock-git',
             'arcolinux-keyring',
             'arcolinux-mirrorlist-git',
@@ -71,6 +72,7 @@ class ChadwmProfile(XorgProfile):
             'rofi-lbonn-wayland',
             'sparklines-git',
             'sublime-text-4',
+            'surfn-icons-git'
             'sxhkd',
             'thunar',
             'thunar-archive-plugin',
