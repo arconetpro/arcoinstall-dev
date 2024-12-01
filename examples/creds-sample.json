@@ -1,0 +1,9 @@
+{
+    "!users": [
+        {
+            "sudo": true,
+            "username": "archinstall"
+        }
+    ],
+    "encryption_password": "..."
+}
