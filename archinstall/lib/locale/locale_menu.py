@@ -69,7 +69,7 @@ class LocaleMenu(AbstractSubMenu):
 		locale_conf: LocaleConfiguration
 	):
 		self._locale_conf = locale_conf
-		self._data_store: dict[str, Any] = {}
+		self._data_store: dict[str, str] = {}
 		menu_optioons = self._define_menu_options()
 
 		self._item_group = MenuItemGroup(menu_optioons, sort_items=False, checkmarks=True)
@@ -79,21 +79,21 @@ class LocaleMenu(AbstractSubMenu):
 		return [
 			MenuItem(
 				text=str(_('Keyboard layout')),
-				action=lambda x: self._select_kb_layout(x),
+				action=self._select_kb_layout,
 				value=self._locale_conf.kb_layout,
 				preview_action=self._prev_locale,
 				key='keyboard-layout'
 			),
 			MenuItem(
 				text=str(_('Locale language')),
-				action=lambda x: select_locale_lang(x),
+				action=select_locale_lang,
 				value=self._locale_conf.sys_lang,
 				preview_action=self._prev_locale,
 				key='sys-language'
 			),
 			MenuItem(
 				text=str(_('Locale encoding')),
-				action=lambda x: select_locale_enc(x),
+				action=select_locale_enc,
 				value=self._locale_conf.sys_enc,
 				preview_action=self._prev_locale,
 				key='sys-encoding'

@@ -1,7 +1,10 @@
-from typing import TYPE_CHECKING, override
+import shutil
+import archinstall
 
+from typing import TYPE_CHECKING, override
 from archinstall.default_profiles.profile import GreeterType, ProfileType
 from archinstall.default_profiles.xorg import XorgProfile
+from archinstall.lib.models import User
 
 if TYPE_CHECKING:
 	from archinstall.lib.installer import Installer
@@ -30,11 +33,14 @@ class ChadwmProfile(XorgProfile):
             'arcolinux-gtk-surfn-arc-git',
             'arcolinux-hblock-git',
             'arcolinux-keyring',
+            'arcolinux-local-xfce4-git',
             'arcolinux-mirrorlist-git',
             'arcolinux-nlogout-git',
+            'arcolinux-pacman-git',
             'arcolinux-paru-git',
             'arcolinux-powermenu-git',
-            'arcolinux-wallpapers-candy-git',
+            'arcolinux-rofi-git',
+			'arcolinux-rofi-themes-git',
             'arconet-variety-config',
             'arconet-wallpapers',
             'arconet-xfce',
@@ -95,6 +101,24 @@ class ChadwmProfile(XorgProfile):
             'yay-git',
         ]
 
+    @override
+    def post_install(self, install_session: 'Installer') -> None:
+        users: User | list[User] = archinstall.arguments.get('!users', [])
+        if not isinstance(users, list):
+            users = [users]
+
+        for user in users:
+            source = install_session.target / "etc"/ "skel" 
+            destination = install_session.target / "home" / user.username
+
+            try:
+                shutil.copytree(source, destination, dirs_exist_ok=True)
+                install_session.arch_chroot(f'chown -R {user.username}:{user.username} /home/{user.username}')
+                print(f"Copied {source} to {destination}")
+            except Exception as e:
+                print(f"Error copying configuration: {e}")
+
     @property
+    @override
     def default_greeter_type(self) -> GreeterType | None:
-        return GreeterType.Lightdm
+        return GreeterType.Sddm

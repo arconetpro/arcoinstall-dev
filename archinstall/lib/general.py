@@ -18,7 +18,7 @@ from datetime import date, datetime
 from enum import Enum
 from select import EPOLLHUP, EPOLLIN, epoll
 from shutil import which
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, override
 from urllib.request import Request, urlopen
 
 from .exceptions import RequirementError, SysCallError
@@ -86,6 +86,7 @@ class JSON(json.JSONEncoder, json.JSONDecoder):
 	A safe JSON encoder that will omit private information in dicts (starting with !)
 	"""
 
+	@override
 	def encode(self, o: Any) -> str:
 		return super().encode(jsonify(o))
 
@@ -95,6 +96,7 @@ class UNSAFE_JSON(json.JSONEncoder, json.JSONDecoder):
 	UNSAFE_JSON will call/encode and keep private information in dicts (starting with !)
 	"""
 
+	@override
 	def encode(self, o: Any) -> str:
 		return super().encode(jsonify(o, safe=False))
 
@@ -162,10 +164,12 @@ class SysCommandWorker:
 
 		self._trace_log_pos = last_line
 
+	@override
 	def __repr__(self) -> str:
 		self.make_sure_we_are_executing()
 		return str(self._trace_log)
 
+	@override
 	def __str__(self) -> str:
 		try:
 			return self._trace_log.decode('utf-8')
@@ -182,7 +186,7 @@ class SysCommandWorker:
 		if self.child_fd:
 			try:
 				os.close(self.child_fd)
-			except:
+			except Exception:
 				pass
 
 		if self.peek_output:
@@ -216,7 +220,6 @@ class SysCommandWorker:
 
 		if self.child_fd:
 			return os.write(self.child_fd, data + (b'\n' if line_ending else b''))
-			os.fsync(self.child_fd)
 
 		return 0
 
@@ -264,7 +267,7 @@ class SysCommandWorker:
 
 		if self.child_fd:
 			got_output = False
-			for fileno, event in self.poll_object.poll(0.1):
+			for _fileno, _event in self.poll_object.poll(0.1):
 				try:
 					output = os.read(self.child_fd, 8192)
 					got_output = True
@@ -379,8 +382,7 @@ class SysCommand:
 
 	def __iter__(self, *args: list[Any], **kwargs: dict[str, Any]) -> Iterator[bytes]:
 		if self.session:
-			for line in self.session:
-				yield line
+			yield from self.session
 
 	def __getitem__(self, key: slice) -> bytes | None:
 		if not self.session:
@@ -393,17 +395,9 @@ class SysCommand:
 		else:
 			raise ValueError("SysCommand() doesn't have key & value pairs, only slices, SysCommand('ls')[:10] as an example.")
 
+	@override
 	def __repr__(self, *args: list[Any], **kwargs: dict[str, Any]) -> str:
 		return self.decode('UTF-8', errors='backslashreplace') or ''
-
-	def __json__(self) -> dict[str, str | bool | list[str] | dict[str, Any] | None]:
-		return {
-			'cmd': self.cmd,
-			'callbacks': self._callbacks,
-			'peak': self.peek_output,
-			'environment_vars': self.environment_vars,
-			'session': self.session is not None
-		}
 
 	def create_session(self) -> bool:
 		"""

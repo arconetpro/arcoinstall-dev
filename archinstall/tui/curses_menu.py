@@ -11,7 +11,7 @@ from collections.abc import Callable
 from curses.textpad import Textbox
 from dataclasses import dataclass
 from types import FrameType, TracebackType
-from typing import TYPE_CHECKING, Any, Literal, override
+from typing import TYPE_CHECKING, Literal, override
 
 from ..lib.output import debug
 from .help import Help
@@ -73,7 +73,7 @@ class AbstractCurses(metaclass=ABCMeta):
 			frame=FrameProperties.min(str(_('Archinstall help')))
 		)
 
-	def _confirm_interrupt(self, screen: Any, warning: str) -> bool:
+	def _confirm_interrupt(self, warning: str) -> bool:
 		while True:
 			result = SelectMenu(
 				MenuItemGroup.yes_no(),
@@ -126,7 +126,7 @@ class AbstractViewport:
 	def __init__(self) -> None:
 		pass
 
-	def add_str(self, screen: Any, row: int, col: int, text: str, color: STYLE) -> None:
+	def add_str(self, screen: 'curses._CursesWindow', row: int, col: int, text: str, color: STYLE) -> None:
 		try:
 			screen.addstr(row, col, text, Tui.t().get_color(color))
 		except curses.error:
@@ -596,10 +596,6 @@ class Viewport(AbstractViewport):
 
 		return modified
 
-	def _replace_str(self, text: str, index: int = 0, replacement: str = '') -> str:
-		len_replace = len(replacement)
-		return f'{text[:index]}{replacement}{text[index + len_replace:]}'
-
 	def _unique_rows(self, entries: list[ViewportEntry]) -> int:
 		return len(set([e.row for e in entries]))
 
@@ -798,7 +794,7 @@ class EditMenu(AbstractCurses):
 				self._real_input += chr(key)
 				if self._hide_input:
 					key = 42
-			except:
+			except Exception:
 				pass
 
 		return key
@@ -806,7 +802,7 @@ class EditMenu(AbstractCurses):
 	def _handle_interrupt(self) -> bool:
 		if self._allow_reset:
 			if self._interrupt_warning:
-				return self._confirm_interrupt(self._input_vp, self._interrupt_warning)
+				return self._confirm_interrupt(self._interrupt_warning)
 		else:
 			return False
 
@@ -1179,7 +1175,7 @@ class SelectMenu(AbstractCurses):
 		items = self._get_visible_items()
 		entries = []
 
-		for row_idx, item in enumerate(items):
+		for item in items:
 			item_text = ''
 
 			if self._multi and not item.is_empty():
@@ -1230,7 +1226,7 @@ class SelectMenu(AbstractCurses):
 
 	def _handle_interrupt(self) -> bool:
 		if self._allow_reset and self._interrupt_warning:
-			return self._confirm_interrupt(self._menu_vp, self._interrupt_warning)
+			return self._confirm_interrupt(self._interrupt_warning)
 		else:
 			return False
 
@@ -1383,7 +1379,7 @@ class Tui:
 		self.stop()
 
 	@property
-	def screen(self) -> Any:
+	def screen(self) -> 'curses._CursesWindow':
 		return self._screen
 
 	@staticmethod

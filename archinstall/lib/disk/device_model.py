@@ -5,7 +5,7 @@ import uuid
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, NotRequired, TypedDict
+from typing import TYPE_CHECKING, NotRequired, TypedDict, override
 
 import parted
 from parted import Disk, Geometry, Partition
@@ -376,9 +376,11 @@ class Size:
 	def __le__(self, other: Size) -> bool:
 		return self._normalize() <= other._normalize()
 
+	@override
 	def __eq__(self, other) -> bool:
 		return self._normalize() == other._normalize()
 
+	@override
 	def __ne__(self, other) -> bool:
 		return self._normalize() != other._normalize()
 
@@ -422,7 +424,7 @@ class _PartitionInfo:
 		sector_size = self.partition.geometry.device.sectorSize
 		return SectorSize(sector_size, Unit.B)
 
-	def table_data(self) -> dict[str, Any]:
+	def table_data(self) -> dict[str, str]:
 		end = self.start + self.length
 
 		part_info = {
@@ -496,7 +498,7 @@ class _DeviceInfo:
 	read_only: bool
 	dirty: bool
 
-	def table_data(self) -> dict[str, Any]:
+	def table_data(self) -> dict[str, str | int | bool]:
 		total_free_space = sum([region.get_length(unit=Unit.MiB) for region in self.free_space_regions])
 		return {
 			'Model': self.model,
@@ -601,7 +603,7 @@ class DeviceGeometry:
 	def get_length(self, unit: Unit = Unit.sectors) -> int:
 		return self._geometry.getLength(unit.name)
 
-	def table_data(self) -> dict[str, Any]:
+	def table_data(self) -> dict[str, str | int]:
 		start = Size(self._geometry.start, Unit.sectors, self._sector_size)
 		end = Size(self._geometry.end, Unit.sectors, self._sector_size)
 		length = Size(self._geometry.getLength(), Unit.sectors, self._sector_size)
@@ -624,6 +626,7 @@ class BDevice:
 	device_info: _DeviceInfo
 	partition_infos: list[_PartitionInfo]
 
+	@override
 	def __hash__(self) -> int:
 		return hash(self.disk.device.path)
 
@@ -807,6 +810,7 @@ class PartitionModification:
 		if self.fs_type is None and self.status == ModificationStatus.Modify:
 			raise ValueError('FS type must not be empty on modifications with status type modify')
 
+	@override
 	def __hash__(self) -> int:
 		return hash(self._obj_id)
 
@@ -946,7 +950,7 @@ class PartitionModification:
 			'btrfs': [vol.json() for vol in self.btrfs_subvols]
 		}
 
-	def table_data(self) -> dict[str, Any]:
+	def table_data(self) -> dict[str, str]:
 		"""
 		Called for displaying data in table format
 		"""
@@ -958,7 +962,7 @@ class PartitionModification:
 			'End': self.end.format_size(Unit.sectors, self.start.sector_size, include_unit=False),
 			'Size': self.length.format_highest(),
 			'FS type': self.fs_type.value if self.fs_type else 'Unknown',
-			'Mountpoint': self.mountpoint if self.mountpoint else '',
+			'Mountpoint': str(self.mountpoint) if self.mountpoint else '',
 			'Mount options': ', '.join(self.mount_options),
 			'Flags': ', '.join([f.description for f in self.flags]),
 		}
@@ -1059,6 +1063,7 @@ class LvmVolume:
 		if not hasattr(self, '_obj_id'):
 			self._obj_id = uuid.uuid4()
 
+	@override
 	def __hash__(self) -> int:
 		return hash(self._obj_id)
 
@@ -1132,7 +1137,7 @@ class LvmVolume:
 			'btrfs': [vol.json() for vol in self.btrfs_subvols]
 		}
 
-	def table_data(self) -> dict[str, Any]:
+	def table_data(self) -> dict[str, str]:
 		part_mod = {
 			'Type': self.status.value,
 			'Name': self.name,
