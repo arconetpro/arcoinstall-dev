@@ -71,6 +71,7 @@ class ChadwmProfile(XorgProfile):
             'nomacs-qt6-git',
             'numlockx',
             'paru-git',
+            'pavucontrol',
             'picom-git',
             'playerctl',
             'polkit-gnome',

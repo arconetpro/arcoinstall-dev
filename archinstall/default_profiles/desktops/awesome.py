@@ -55,6 +55,7 @@ class AwesomeProfile(XorgProfile):
 			'neofetch',
 			'noto-fonts',
 			'paru-git',
+			'pavucontrol',
 			'surfn-icons-git',
 			'thunar',
 			'thunar-archive-plugin',
