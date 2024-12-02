@@ -23,7 +23,7 @@ class AwesomeProfile(XorgProfile):
 			'arcolinux-awesome-git',
 			'arcolinux-config-all-desktops-git',
 			'arcolinux-dconf-all-desktops-git',
-			'arcolinux-gtk3-surfn-arc-git',
+			'arcolinux-gtk-surfn-arc-git',
 			'arcolinux-keyring',
 			'arcolinux-local-xfce4-git',
 			'arcolinux-mirrorlist-git',

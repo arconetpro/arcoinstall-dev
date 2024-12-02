@@ -27,7 +27,7 @@ class ChadwmProfile(XorgProfile):
             'arcolinux-chadwm-git',
             'arcolinux-chadwm-pacman-hook-git',
             'arcolinux-fastfetch-git',
-            'arcolinux-gtk3-surfn-arc-git',
+            'arcolinux-gtk-surfn-arc-git',
             'arcolinux-hblock-git',
             'arcolinux-keyring',
             'arcolinux-mirrorlist-git',
