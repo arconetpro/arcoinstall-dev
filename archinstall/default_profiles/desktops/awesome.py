@@ -1,5 +1,6 @@
 import shutil
 import archinstall
+from typing import override
 
 from typing import TYPE_CHECKING, override
 from archinstall.default_profiles.profile import GreeterType, ProfileType
@@ -18,19 +19,19 @@ class AwesomeProfile(XorgProfile):
 	@override
 	def packages(self) -> list[str]:
 		return super().packages + [
-			'alacritty',
 			'awesome',
-			'feh',
-			'gnu-free-fonts',
-			'slock',
-			'terminus-font',
-			'ttf-liberation',
 			'xorg-xinit',
 			'xorg-xrandr',
-			'xsel',
 			'xterm',
+			'feh',
+			'slock',
+			'terminus-font',
+			'gnu-free-fonts',
+			'ttf-liberation',
+			'xsel',
 			] + [
 			'a-candy-beauty-icon-theme-git',
+			'alacritty',
 			'arc-gtk-theme',
 			'arcolinux-alacritty-git',
 			'arcolinux-config-all-desktops-git',
@@ -41,13 +42,14 @@ class AwesomeProfile(XorgProfile):
 			'arcolinux-mirrorlist-git',
 			'arcolinux-pacman-git',
 			'arcolinux-paru-git',
+			'arcolinux-root-git',
 			'arconet-variety-config',
 			'arconet-wallpapers',
 			'bash-completion',
 			'bibata-cursor-theme-bin',
 			'fastfetch-git',
 			'feh',
-            'firefox',
+			'firefox',
 			'git',
 			'gvfs',
 			'gvfs-dnssd',
@@ -129,7 +131,7 @@ class AwesomeProfile(XorgProfile):
 			users = [users]
 
 		for user in users:
-			source = install_session.target / "etc"/ "skel"
+			source = install_session.target / "etc" / "skel"
 			destination = install_session.target / "home" / user.username
 
 			try:

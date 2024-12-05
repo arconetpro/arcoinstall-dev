@@ -91,10 +91,6 @@ module = "archinstall.default_profiles.*"
 disallow_any_explicit = true
 
 [[tool.mypy.overrides]]
-module = "archinstall.default_profiles.profile"
-disallow_any_explicit = false
-
-[[tool.mypy.overrides]]
 module = "archinstall.examples.*"
 disallow_any_explicit = true
 
@@ -157,19 +153,14 @@ disable = [
     "C",
     "R",
     "attribute-defined-outside-init",
-    "bare-except",
     "broad-exception-caught",
     "cell-var-from-loop",
-    "comparison-with-callable",
     "dangerous-default-value",
     "fixme",
     "protected-access",
     "raise-missing-from",
-    "unnecessary-lambda",
-    "unreachable",
     "unspecified-encoding",
     "unused-argument",
-    "unused-variable",
 ]
 
 [tool.pylint.refactoring]
@@ -212,13 +203,15 @@ select = [
 ]
 
 ignore = [
-    "E722",     # bare-except
+    "PLC0415",  # import-outside-top-level
+    "PLC1901",  # compare-to-empty-string
+    "PLW1514",  # unspecified-encoding
+    "PLW1641",  # eq-without-hash
     "PLW2901",  # redefined-loop-name
     "RUF005",   # collection-literal-concatenation
     "RUF012",   # mutable-class-default
     "RUF015",   # unnecessary-iterable-allocation-for-first-element
     "RUF039",   # unraw-re-pattern
-    "UP028",    # yield-in-for-loop
     "UP037",    # quoted-annotation
     "W191",     # tab-indentation
 ]
