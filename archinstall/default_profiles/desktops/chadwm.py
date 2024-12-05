@@ -110,7 +110,7 @@ class ChadwmProfile(XorgProfile):
 			users = [users]
 
 		for user in users:
-			source = install_session.target / "etc"/ "skel"
+			source = install_session.target / "etc" / "skel"
 			destination = install_session.target / "home" / user.username
 
 			try:
