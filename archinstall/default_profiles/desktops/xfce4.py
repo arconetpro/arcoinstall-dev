@@ -59,7 +59,10 @@ class Xfce4Profile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
+			'arconet-xfce',
+			'dmenu',
 		]
 
 	@override
