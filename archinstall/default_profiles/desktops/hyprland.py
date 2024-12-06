@@ -96,6 +96,7 @@ class HyprlandProfile(XorgProfile):
 			'mako',
 			'micro',
 			'pamixer',
+			'pavucontrol',
 			'picom',
 			'pulsemixer',
 			'rofi-lbonn-wayland',

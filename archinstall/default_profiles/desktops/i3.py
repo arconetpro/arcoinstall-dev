@@ -83,6 +83,7 @@ class I3wmProfile(XorgProfile):
 			'i3status',
 			'lxappearance',
 			'nitrogen',
+			'pavucontrol',
 			'picom-git',
 			'polkit-gnome',
 			'polybar',
