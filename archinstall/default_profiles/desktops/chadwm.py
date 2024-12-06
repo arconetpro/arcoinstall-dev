@@ -42,6 +42,7 @@ class ChadwmProfile(XorgProfile):
 			'arcolinux-powermenu-git',
 			'arcolinux-rofi-git',
 			'arcolinux-rofi-themes-git',
+			'arcolinux-root-git',
 			'arconet-variety-config',
 			'arconet-wallpapers',
 			'arconet-xfce',
