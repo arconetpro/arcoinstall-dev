@@ -78,6 +78,10 @@ class HyprlandProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'archlinux-tweak-tool-git',
+			'arconet-xfce',
+			'thunar',
+			'thunar-archive-plugin',
+			'thunar-volman',
 		]
 
 	@property

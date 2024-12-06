@@ -63,7 +63,25 @@ class I3wmProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arandr',
+			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
+			'arcolinux-powermenu-git',
+			'arcolinux-rofi-git',
+			'arcolinux-rofi-themes-git',
+			'arcolinux-volumeicon-git',
+			'arconet-xfce',
+			'autorandr',
+			'dmenu',
+			'lxappearance',
+			'picom-git',
+			'polkit-gnome',
+			'rofi-lbonn-wayland',
+			'thunar',
+			'thunar-archive-plugin',
+			'thunar-volman',
+			'volumeicon',
+			'xfce4-terminal',
 		]
 
 	@override
