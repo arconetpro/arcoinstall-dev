@@ -93,6 +93,7 @@ class HyprlandProfile(XorgProfile):
 			'pamixer',
 			'pavucontrol',
 			'picom',
+			'polkit-gnome',
 			'pulsemixer',
 			'rofi-lbonn-wayland',
 			'swaybg',
