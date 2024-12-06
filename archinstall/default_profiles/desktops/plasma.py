@@ -73,6 +73,7 @@ class PlasmaProfile(XorgProfile):
 			'gwenview',
 			'kde-gtk-config',
 			'packagekit-qt6'
+			'spectacle',
 			'surfn-plasma-dark-icons-git',
 			'surfn-plasma-light-icons-git',
 			'yakuake',

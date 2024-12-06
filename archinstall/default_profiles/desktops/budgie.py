@@ -50,7 +50,6 @@ class BudgieProfile(XorgProfile):
 			'neofetch',
 			'noto-fonts',
 			'paru-git',
-			'pavucontrol',
 			'ttf-hack',
 			'variety',
 			'xdg-desktop-portal',
