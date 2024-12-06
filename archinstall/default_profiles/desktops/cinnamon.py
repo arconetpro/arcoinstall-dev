@@ -34,7 +34,6 @@ class CinnamonProfile(XorgProfile):
 			'a-candy-beauty-icon-theme-git',
 			'alacritty',
 			'arc-gtk-theme',
-			'arc-'
 			'arcolinux-alacritty-git',
 			'arcolinux-arc-dawn-git',
 			'arcolinux-config-all-desktops-git',
