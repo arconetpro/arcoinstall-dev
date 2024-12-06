@@ -9,6 +9,8 @@ from archinstall.lib.models import User
 
 if TYPE_CHECKING:
 	from archinstall.lib.installer import Installer
+
+
 class BudgieProfile(XorgProfile):
 	def __init__(self) -> None:
 		super().__init__('Budgie', ProfileType.DesktopEnv, description='')
@@ -50,6 +52,7 @@ class BudgieProfile(XorgProfile):
 			'neofetch',
 			'noto-fonts',
 			'paru-git',
+			'surfn-icons-git',
 			'ttf-hack',
 			'variety',
 			'xdg-desktop-portal',
