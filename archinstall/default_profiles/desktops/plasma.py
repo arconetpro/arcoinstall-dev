@@ -68,15 +68,13 @@ class PlasmaProfile(XorgProfile):
 			'arcolinux-plasma-theme-surfn-nordic-git',
 			'ark',
 			'breeze',
+			'discover',
 			'dolphin-plugins',
 			'gwenview',
 			'kde-gtk-config',
-			'polkit-gnome',
-			'rofi-lbonn-wayland',
+			'packagekit-qt6'
 			'surfn-plasma-dark-icons-git',
 			'surfn-plasma-light-icons-git',
-			'volumeicon',
-			'xfce4-terminal',
 			'yakuake',
 		]
 
