@@ -29,6 +29,7 @@ class Xfce4Profile(XorgProfile):
 			'alacritty',
 			'arc-gtk-theme',
 			'arcolinux-alacritty-git',
+			'arcolinux-arc-dawn-git',
 			'arcolinux-config-all-desktops-git',
 			'arcolinux-dconf-all-desktops-git',
 			'arcolinux-fastfetch-git',
