@@ -58,6 +58,7 @@ class ChadwmProfile(XorgProfile):
 			'eww',
 			'fastfetch-git',
 			'feh',
+			'file-roller',
 			'firefox',
 			'gcc',
 			'git',

@@ -63,6 +63,7 @@ class Xfce4Profile(XorgProfile):
 			'archlinux-tweak-tool-git',
 			'arconet-xfce',
 			'dmenu',
+			'file-roller',
 		]
 
 	@override

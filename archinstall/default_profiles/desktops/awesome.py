@@ -77,6 +77,7 @@ class AwesomeProfile(XorgProfile):
 			'arconet-xfce',
 			'autorandr',
 			'dmenu',
+			'file-roller',
 			'lxappearance',
 			'picom-git',
 			'polkit-gnome',

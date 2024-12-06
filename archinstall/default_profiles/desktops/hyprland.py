@@ -87,6 +87,7 @@ class HyprlandProfile(XorgProfile):
 			'arcolinux-rofi-themes-git',
 			'arcolinux-wayland-app-hooks-git',
 			'arconet-xfce',
+			'file-roller',
 			'grim',
 			'hyprcursor-git',
 			'hyprland-git',

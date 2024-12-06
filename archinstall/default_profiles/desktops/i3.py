@@ -77,7 +77,7 @@ class I3wmProfile(XorgProfile):
 			'autorandr',
 			'autotiling',
 			'dmenu',
-			'xfce4-notifyd',
+			'file-roller',
 			'i3-wm',
 			'i3blocks',
 			'i3status',

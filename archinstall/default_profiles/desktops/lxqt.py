@@ -66,6 +66,7 @@ class LxqtProfile(XorgProfile):
 			] + [
 			'archlinux-tweak-tool-git',
 			'arconet-xfce',
+			'file-roller',
 			'thunar',
 			'thunar-archive-plugin',
 			'thunar-volman',
