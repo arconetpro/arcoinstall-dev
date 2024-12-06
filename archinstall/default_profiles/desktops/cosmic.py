@@ -10,6 +10,7 @@ from archinstall.lib.models import User
 if TYPE_CHECKING:
 	from archinstall.lib.installer import Installer
 
+
 class CosmicProfile(XorgProfile):
 	def __init__(self) -> None:
 		super().__init__('cosmic-epoch', ProfileType.DesktopEnv, description='', advanced=True)
@@ -19,6 +20,42 @@ class CosmicProfile(XorgProfile):
 	def packages(self) -> list[str]:
 		return [
 			"cosmic",
+			] + [
+			'a-candy-beauty-icon-theme-git',
+			'alacritty',
+			'arc-gtk-theme',
+			'arcolinux-alacritty-git',
+			'arcolinux-config-all-desktops-git',
+			'arcolinux-dconf-all-desktops-git',
+			'arcolinux-fastfetch-git',
+			'arcolinux-gtk-surfn-arc-git',
+			'arcolinux-keyring',
+			'arcolinux-mirrorlist-git',
+			'arcolinux-pacman-git',
+			'arcolinux-paru-git',
+			'arcolinux-root-git',
+			'arconet-variety-config',
+			'arconet-wallpapers',
+			'bash-completion',
+			'bibata-cursor-theme-bin',
+			'fastfetch-git',
+			'feh',
+			'firefox',
+			'git',
+			'gvfs',
+			'gvfs-dnssd',
+			'gvfs-smb',
+			'neofetch',
+			'noto-fonts',
+			'paru-git',
+			'surfn-icons-git',
+			'ttf-hack',
+			'variety',
+			'xdg-desktop-portal',
+			'xdg-user-dirs',
+			'yay-git',
+			] + [
+			'archlinux-tweak-tool-git',
 		]
 
 	@override
