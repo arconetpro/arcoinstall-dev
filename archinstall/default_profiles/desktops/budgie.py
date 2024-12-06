@@ -57,7 +57,6 @@ class BudgieProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
-			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 		]
 
