@@ -95,6 +95,7 @@ class HyprlandProfile(XorgProfile):
 			'lxappearance',
 			'mako',
 			'micro',
+			'numlockx',
 			'pamixer',
 			'pavucontrol',
 			'picom',

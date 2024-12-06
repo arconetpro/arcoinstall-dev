@@ -59,6 +59,7 @@ class QtileProfile(XorgProfile):
 			'archlinux-tweak-tool-git',
 			'arconet-xfce',
 			'file-roller',
+			'numlockx',
 			'pavucontrol',
 			'thunar',
 			'thunar-archive-plugin',

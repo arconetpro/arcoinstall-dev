@@ -77,6 +77,7 @@ class BspwmProfile(XorgProfile):
 			'dmenu',
 			'file-roller',
 			'lxappearance',
+			'numlockx',
 			'pavucontrol',
 			'picom-git',
 			'polkit-gnome',

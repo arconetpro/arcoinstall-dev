@@ -90,6 +90,7 @@ class SwayProfile(XorgProfile):
 			'archlinux-tweak-tool-git',
 			'arconet-xfce',
 			'file-roller',
+			'numlockx',
 			'thunar',
 			'thunar-archive-plugin',
 			'thunar-volman',
