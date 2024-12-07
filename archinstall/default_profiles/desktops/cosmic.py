@@ -45,6 +45,7 @@ class CosmicProfile(XorgProfile):
 			'gvfs',
 			'gvfs-dnssd',
 			'gvfs-smb',
+			'mkinitcpio-firmware',
 			'neofetch',
 			'noto-fonts',
 			'paru-git',
@@ -70,7 +71,7 @@ class CosmicProfile(XorgProfile):
 
 			try:
 				shutil.copytree(source, destination, dirs_exist_ok=True)
-				install_session.arch_chroot(f'chown -R {user.username}:{user.username} /home/{user.username}')
+				install_session.arch_chroot(f'chown -R {user.username}:{user.username} /home/{user.username} /home/{user.username}/.*')
 				print(f"Copied {source} to {destination}")
 			except Exception as e:
 				print(f"Error copying configuration: {e}")

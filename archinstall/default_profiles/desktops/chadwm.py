@@ -18,7 +18,6 @@ class ChadwmProfile(XorgProfile):
 	@property
 	@override
 	def packages(self) -> list[str]:
-		# return super().packages + [
 		return [
 			'a-candy-beauty-icon-theme-git',
 			'alacritty',

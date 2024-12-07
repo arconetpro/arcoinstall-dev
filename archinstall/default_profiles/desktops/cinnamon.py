@@ -27,7 +27,6 @@ class CinnamonProfile(XorgProfile):
 			"bluez-utils",
 			"engrampa",
 			"gnome-screenshot",
-			"gvfs-smb",
 			"xed",
 			"xdg-user-dirs-gtk"
 			] + [
@@ -35,7 +34,6 @@ class CinnamonProfile(XorgProfile):
 			'alacritty',
 			'arc-gtk-theme',
 			'arcolinux-alacritty-git',
-			'arcolinux-arc-dawn-git',
 			'arcolinux-config-all-desktops-git',
 			'arcolinux-dconf-all-desktops-git',
 			'arcolinux-fastfetch-git',
@@ -68,6 +66,7 @@ class CinnamonProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'archlinux-tweak-tool-git',
+			'arcolinux-arc-dawn-git',
 			'arcolinux-cinnamon-git',
 			'cinnamon-translations',
 			'gnome-system-monitor',

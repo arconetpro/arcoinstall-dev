@@ -12,6 +12,19 @@ if [ -d /tmp/archlive ]; then
 	sudo rm -rfv /tmp/archlive
 fi
 
+# Check if the folder still exists
+if [ -d /tmp/archlive ]; then
+    echo "Error: The folder /tmp/archlive still exists. Exiting..."
+    exit 1
+else
+	tput setaf 3
+	echo "#####################################################"
+    echo "Folder /tmp/archlive successfully removed."
+	echo "#####################################################"
+	sleep 3
+	tput sgr0
+fi
+
 echo "########################################################"
 echo "########################################################"
 echo "########################################################"

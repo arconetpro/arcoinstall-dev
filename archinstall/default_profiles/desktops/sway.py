@@ -88,6 +88,7 @@ class SwayProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'archlinux-tweak-tool-git',
+			'arcolinux-sway-git',
 			'arconet-xfce',
 			'file-roller',
 			'numlockx',
@@ -143,7 +144,7 @@ class SwayProfile(XorgProfile):
 
 			try:
 				shutil.copytree(source, destination, dirs_exist_ok=True)
-				install_session.arch_chroot(f'chown -R {user.username}:{user.username} /home/{user.username}')
+				install_session.arch_chroot(f'chown -R {user.username}:{user.username} /home/{user.username} /home/{user.username}/.*')
 				print(f"Copied {source} to {destination}")
 			except Exception as e:
 				print(f"Error copying configuration: {e}")

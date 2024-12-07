@@ -26,7 +26,6 @@ class MateProfile(XorgProfile):
 			'alacritty',
 			'arc-gtk-theme',
 			'arcolinux-alacritty-git',
-			'arcolinux-arc-dawn-git',
 			'arcolinux-config-all-desktops-git',
 			'arcolinux-dconf-all-desktops-git',
 			'arcolinux-fastfetch-git',
@@ -59,6 +58,7 @@ class MateProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'archlinux-tweak-tool-git',
+			'arcolinux-arc-dawn-git',
 			'arcolinux-mate-git',
 			'mate-tweak',
 			'gnome-screenshot',
