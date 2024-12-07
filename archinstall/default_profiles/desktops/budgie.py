@@ -44,6 +44,7 @@ class BudgieProfile(XorgProfile):
 			'bibata-cursor-theme-bin',
 			'fastfetch-git',
 			'feh',
+			'file-roller',
 			'firefox',
 			'git',
 			'gvfs',

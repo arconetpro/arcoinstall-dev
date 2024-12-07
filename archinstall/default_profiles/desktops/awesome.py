@@ -49,6 +49,7 @@ class AwesomeProfile(XorgProfile):
 			'bibata-cursor-theme-bin',
 			'fastfetch-git',
 			'feh',
+			'file-roller',
 			'firefox',
 			'git',
 			'gvfs',
@@ -60,9 +61,9 @@ class AwesomeProfile(XorgProfile):
 			'surfn-icons-git',
 			'ttf-hack',
 			'variety',
-			'yay-git',
 			'xdg-desktop-portal',
 			'xdg-user-dirs',
+			'yay-git',
 			] + [
 			'arandr',
 			'archlinux-logout-git',
@@ -74,9 +75,7 @@ class AwesomeProfile(XorgProfile):
 			'arcolinux-rofi-themes-git',
 			'arcolinux-volumeicon-git',
 			'arconet-xfce',
-			'autorandr',
 			'dmenu',
-			'file-roller',
 			'lxappearance',
 			'numlockx',
 			'pavucontrol',
@@ -88,6 +87,9 @@ class AwesomeProfile(XorgProfile):
 			'thunar-volman',
 			'vicious',
 			'volumeicon',
+			'xfce4-notifyd',
+			'xfce4-power-manager',
+			'xfce4-screenshooter',
 			'xfce4-terminal',
 		]
 

@@ -57,6 +57,9 @@ class GnomeProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'archlinux-tweak-tool-git',
+			'arcolinux-gnome-git',
+			'extension-manager-git',
+			'gnome-tweaks',
 		]
 
 	@override
@@ -80,4 +83,3 @@ class GnomeProfile(XorgProfile):
 	@override
 	def default_greeter_type(self) -> GreeterType | None:
 		return GreeterType.Sddm
-

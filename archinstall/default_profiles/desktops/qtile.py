@@ -20,7 +20,6 @@ class QtileProfile(XorgProfile):
 	def packages(self) -> list[str]:
 		return [
 			'qtile',
-			'alacritty'
 			] + [
 			'a-candy-beauty-icon-theme-git',
 			'alacritty',
@@ -56,14 +55,38 @@ class QtileProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arandr',
+			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
+			'arcolinux-bspwm-git',
+			'arcolinux-polybar-git',
+			'arcolinux-powermenu-git',
+			'arcolinux-qtile-git',
+			'arcolinux-rofi-git',
+			'arcolinux-rofi-themes-git',
+			'arcolinux-volumeicon-git',
 			'arconet-xfce',
+			'awesome-terminal-fonts',
+			'dmenu',
 			'file-roller',
+			'lxappearance',
 			'numlockx',
 			'pavucontrol',
+			'picom-git',
+			'polkit-gnome',
+			'python-psutil',
+			'python-setuptools',
+			'rofi-lbonn-wayland',
 			'thunar',
 			'thunar-archive-plugin',
 			'thunar-volman',
+			'volumeicon',
+			'xcb-util-cursor',
+			'xfce4-notifyd',
+			'xfce4-power-manager',
+			'xfce4-screenshooter',
+			'xfce4-taskmanager',
+			'xfce4-terminal',
 		]
 
 	@override
@@ -87,4 +110,3 @@ class QtileProfile(XorgProfile):
 	@override
 	def default_greeter_type(self) -> GreeterType | None:
 		return GreeterType.Sddm
-

@@ -16,6 +16,7 @@ class ChadwmProfile(XorgProfile):
 		super().__init__("Chadwm", ProfileType.WindowMgr, description='')
 
 	@property
+	@override
 	def packages(self) -> list[str]:
 		# return super().packages + [
 		return [

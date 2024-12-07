@@ -71,6 +71,7 @@ class HyprlandProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arandr',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-hyprland-git',
@@ -92,9 +93,8 @@ class HyprlandProfile(XorgProfile):
 			'numlockx',
 			'pamixer',
 			'pavucontrol',
-			'picom',
+			'picom-git',
 			'polkit-gnome',
-			'pulsemixer',
 			'rofi-lbonn-wayland',
 			'swaybg',
 			'thunar',

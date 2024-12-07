@@ -19,4 +19,4 @@ class EnlighenmentProfile(XorgProfile):
 	@property
 	@override
 	def default_greeter_type(self) -> GreeterType | None:
-		return GreeterType.Sddm
+		return GreeterType.Lightdm

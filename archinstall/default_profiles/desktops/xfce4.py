@@ -29,7 +29,6 @@ class Xfce4Profile(XorgProfile):
 			'alacritty',
 			'arc-gtk-theme',
 			'arcolinux-alacritty-git',
-			'arcolinux-arc-dawn-git',
 			'arcolinux-config-all-desktops-git',
 			'arcolinux-dconf-all-desktops-git',
 			'arcolinux-fastfetch-git',
@@ -62,6 +61,7 @@ class Xfce4Profile(XorgProfile):
 			] + [
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
+			'arcolinux-arc-dawn-git',
 			'arconet-xfce',
 			'dmenu',
 			'file-roller',
@@ -88,4 +88,3 @@ class Xfce4Profile(XorgProfile):
 	@override
 	def default_greeter_type(self) -> GreeterType | None:
 		return GreeterType.Sddm
-

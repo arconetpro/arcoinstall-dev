@@ -57,6 +57,9 @@ class MateProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'archlinux-tweak-tool-git',
+			'arcolinux-mate-git',
+			'mate-tweak',
+			'gnome-screenshot',
 		]
 
 	@override
