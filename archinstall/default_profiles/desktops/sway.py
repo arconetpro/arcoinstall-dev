@@ -87,14 +87,22 @@ class SwayProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
+			'arcolinux-powermenu-git',
+			'arcolinux-rofi-git',
+			'arcolinux-rofi-themes-git',
 			'arcolinux-sway-git',
 			'arconet-xfce',
 			'file-roller',
+			'kitty',
+			'micro',
 			'numlockx',
+			'rofi-lbonn-wayland',
 			'thunar',
 			'thunar-archive-plugin',
 			'thunar-volman',
+			'ttf-jetbrains-mono-nerd',
 		] + additional
 
 	@property
