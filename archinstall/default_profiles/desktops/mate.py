@@ -83,4 +83,3 @@ class MateProfile(XorgProfile):
 	@override
 	def default_greeter_type(self) -> GreeterType | None:
 		return GreeterType.Sddm
-
