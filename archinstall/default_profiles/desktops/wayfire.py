@@ -136,6 +136,7 @@ class WayfireProfile(XorgProfile):
 			'wofi',
 			'xdg-desktop-portal-wlr',
 			'xfce4-terminal',
+			'yad',
 		]
 
 	@property
