@@ -54,6 +54,7 @@ class LxqtProfile(XorgProfile):
 			'gvfs',
 			'gvfs-dnssd',
 			'gvfs-smb',
+			'mkinitcpio-firmware',
 			'neofetch',
 			'noto-fonts',
 			'paru-git',
