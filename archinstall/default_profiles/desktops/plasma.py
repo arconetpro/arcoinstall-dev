@@ -54,6 +54,7 @@ class PlasmaProfile(XorgProfile):
 			'neofetch',
 			'noto-fonts',
 			'paru-git',
+			'ripgrep',
 			'ttf-hack',
 			'variety',
 			'yay-git',

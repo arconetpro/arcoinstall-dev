@@ -57,6 +57,7 @@ class I3wmProfile(XorgProfile):
 			'neofetch',
 			'noto-fonts',
 			'paru-git',
+			'ripgrep',
 			'surfn-icons-git',
 			'ttf-hack',
 			'variety',

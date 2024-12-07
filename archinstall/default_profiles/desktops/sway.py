@@ -80,6 +80,7 @@ class SwayProfile(XorgProfile):
 			'neofetch',
 			'noto-fonts',
 			'paru-git',
+			'ripgrep',
 			'surfn-icons-git',
 			'ttf-hack',
 			'variety',
@@ -98,6 +99,7 @@ class SwayProfile(XorgProfile):
 			'kitty',
 			'micro',
 			'numlockx',
+			'picom-git',
 			'rofi-lbonn-wayland',
 			'thunar',
 			'thunar-archive-plugin',
@@ -152,7 +154,7 @@ class SwayProfile(XorgProfile):
 
 			try:
 				shutil.copytree(source, destination, dirs_exist_ok=True)
-				install_session.arch_chroot(f'chown -R {user.username}:{user.username} /home/{user.username} /home/{user.username}/.*')
+				install_session.arch_chroot(f'chown -R {user.username}:{user.username} /home/{user.username}')
 				print(f"Copied {source} to {destination}")
 			except Exception as e:
 				print(f"Error copying configuration: {e}")

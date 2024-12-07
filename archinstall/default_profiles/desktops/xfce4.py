@@ -53,6 +53,7 @@ class Xfce4Profile(XorgProfile):
 			'neofetch',
 			'noto-fonts',
 			'paru-git',
+			'ripgrep',
 			'surfn-icons-git',
 			'ttf-hack',
 			'variety',
