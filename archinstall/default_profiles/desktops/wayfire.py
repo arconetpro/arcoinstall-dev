@@ -125,6 +125,7 @@ class WayfireProfile(XorgProfile):
 			'thunar-archive-plugin',
 			'thunar-volman',
 			'ttf-jetbrains-mono-nerd',
+			'ttf-meslo-nerd-font-powerlevel10k',
 			'waybar-git',
 			'wayfire-git',
 			'wayfire-plugins-extra-git',
