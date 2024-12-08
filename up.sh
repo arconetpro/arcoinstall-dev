@@ -30,10 +30,6 @@
 # reset - commit your changes or stash them before you merge
 # git reset --hard - personal alias - grh
 
-# checking if I have the latest files from github
-echo "Checking for newer files online first"
-git pull
-
 # Below command will backup everything inside the project folder
 git add --all .
 
