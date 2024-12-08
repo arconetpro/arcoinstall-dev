@@ -32,6 +32,10 @@
 
 git checkout main
 
+# checking if I have the latest files from github
+echo "Checking for newer files online first"
+git pull
+
 # Below command will backup everything inside the project folder
 git add --all .
 
@@ -52,8 +56,6 @@ if grep -q main .git/config; then
 	echo "Using main"
 		git push -u origin main
 fi
-
-
 
 echo "################################################################"
 echo "###################    Git Push Done      ######################"
