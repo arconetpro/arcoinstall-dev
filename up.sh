@@ -30,6 +30,8 @@
 # reset - commit your changes or stash them before you merge
 # git reset --hard - personal alias - grh
 
+git checkout main
+
 # Below command will backup everything inside the project folder
 git add --all .
 
@@ -51,10 +53,7 @@ if grep -q main .git/config; then
 		git push -u origin main
 fi
 
-if grep -q master .git/config; then
-	echo "Using master"
-		git push -u origin master
-fi
+
 
 echo "################################################################"
 echo "###################    Git Push Done      ######################"
