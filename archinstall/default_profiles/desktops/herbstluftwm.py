@@ -3,54 +3,27 @@ import shutil
 import archinstall
 from typing import TYPE_CHECKING, override
 
-from archinstall.default_profiles.profile import GreeterType, ProfileType, SelectResult
+from archinstall.default_profiles.profile import GreeterType, ProfileType
 from archinstall.default_profiles.xorg import XorgProfile
 from archinstall.lib.models import User
-from archinstall.default_profiles.desktops import SeatAccess
 
 if TYPE_CHECKING:
 	from archinstall.lib.installer import Installer
 
-from archinstall.tui import Alignment, FrameProperties, MenuItem, MenuItemGroup, ResultType, SelectMenu
 
-if TYPE_CHECKING:
-	from collections.abc import Callable
-
-	from archinstall.lib.translationhandler import DeferredTranslation
-
-	_: Callable[[str], DeferredTranslation]
-
-
-class SwayProfile(XorgProfile):
+class HerbstluftwmProfile(XorgProfile):
 	def __init__(self) -> None:
-		super().__init__(
-			'Sway',
-			ProfileType.WindowMgr,
-			description=''
-		)
-
-		self.custom_settings = {'seat_access': None}
+		super().__init__('Herbstluftwm', ProfileType.WindowMgr, description='')
 
 	@property
 	@override
 	def packages(self) -> list[str]:
-		additional = []
-		if seat := self.custom_settings.get('seat_access', None):
-			additional = [seat]
-
+		# return super().packages + [
 		return [
-			"sway",
-			"swaybg",
-			"swaylock",
-			"swayidle",
-			"waybar",
-			"dmenu",
-			"brightnessctl",
-			"grim",
-			"slurp",
-			"pavucontrol",
-			"foot",
-			"xorg-xwayland"
+			'herbstluftwm',
+			'sxhkd',
+			'dmenu',
+			'xdo',
 			] + [
 			'a-candy-beauty-icon-theme-git',
 			'alacritty',
@@ -106,60 +79,39 @@ class SwayProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arandr',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
+			'arcolinux-herbstluftwm-git',
+			'arcolinux-polybar-git',
 			'arcolinux-powermenu-git',
 			'arcolinux-rofi-git',
 			'arcolinux-rofi-themes-git',
-			'arcolinux-sway-git',
+			'arcolinux-volumeicon-git',
 			'arconet-xfce',
+			'awesome-terminal-fonts',
+			'dmenu',
 			'file-roller',
-			'kitty',
-			'micro',
+			'lxappearance',
 			'numlockx',
+			'pavucontrol',
 			'picom-git',
+			'polkit-gnome',
+			'polybar',
+			'arcolinux-polybar-git',
 			'rofi-lbonn-wayland',
+			'sutils-git',
 			'thunar',
 			'thunar-archive-plugin',
 			'thunar-volman',
-			'ttf-jetbrains-mono-nerd',
-			'wlroots',
-		] + additional
-
-	@property
-	@override
-	def services(self) -> list[str]:
-		if pref := self.custom_settings.get('seat_access', None):
-			return [pref]
-		return []
-
-	def _ask_seat_access(self) -> None:
-		# need to activate seat service and add to seat group
-		header = str(_('Sway needs access to your seat (collection of hardware devices i.e. keyboard, mouse, etc)'))
-		header += '\n' + str(_('Choose an option to give Sway access to your hardware')) + '\n'
-
-		items = [MenuItem(s.value, value=s) for s in SeatAccess]
-		group = MenuItemGroup(items, sort_items=True)
-
-		default = self.custom_settings.get('seat_access', None)
-		group.set_default_by_value(default)
-
-		result = SelectMenu(
-			group,
-			header=header,
-			allow_skip=False,
-			frame=FrameProperties.min(str(_('Seat access'))),
-			alignment=Alignment.CENTER
-		).run()
-
-		if result.type_ == ResultType.Selection:
-			if result.item() is not None:
-				self.custom_settings['seat_access'] = result.get_value().value
-
-	@override
-	def do_on_select(self) -> SelectResult | None:
-		self._ask_seat_access()
-		return None
+			'volumeicon',
+			'xfce4-notifyd',
+			'xfce4-power-manager',
+			'xfce4-screenshooter',
+			'xfce4-taskmanager',
+			'xfce4-terminal',
+			'xtitle-git',
+		]
 
 	@override
 	def post_install(self, install_session: 'Installer') -> None:
