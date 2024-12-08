@@ -478,27 +478,21 @@ class Installer:
 				if result := plugin.on_mirrors(mirror_config):
 					mirror_config = result
 
-		if on_target:
-			local_pacman_conf = Path(f'{self.target}/etc/pacman.conf')
-			local_mirrorlist_conf = Path(f'{self.target}/etc/pacman.d/mirrorlist')
-		else:
-			local_pacman_conf = Path('/etc/pacman.conf')
-			local_mirrorlist_conf = Path('/etc/pacman.d/mirrorlist')
-
-		mirrorlist_config = mirror_config.mirrorlist_config()
+		mirrorlist_config = mirror_config.mirrorlist_config(speed_sort=True)
 		pacman_config = mirror_config.pacman_config()
+
+		root = self.target if on_target else Path('/')
 
 		if pacman_config:
 			debug(f'Pacman config: {pacman_config}')
 
-			with local_pacman_conf.open('a') as fp:
+			with open(root / 'etc/pacman.conf', 'a') as fp:
 				fp.write(pacman_config)
 
 		if mirrorlist_config:
 			debug(f'Mirrorlist: {mirrorlist_config}')
 
-			with local_mirrorlist_conf.open('w') as fp:
-				fp.write(mirrorlist_config)
+			(root / 'etc/pacman.d/mirrorlist').write_text(mirrorlist_config)
 
 	def genfstab(self, flags: str = '-pU') -> None:
 		fstab_path = self.target / "etc" / "fstab"
@@ -526,8 +520,7 @@ class Installer:
 				fp.write(f'{entry}\n')
 
 	def set_hostname(self, hostname: str) -> None:
-		with open(f'{self.target}/etc/hostname', 'w') as fh:
-			fh.write(hostname + '\n')
+		(self.target / 'etc/hostname').write_text(hostname + '\n')
 
 	def set_locale(self, locale_config: LocaleConfiguration) -> bool:
 		modifier = ''
@@ -1481,15 +1474,15 @@ Exec = /bin/sh -c "{hook_command}"
 	def enable_sudo(self, entity: str, group: bool = False):
 		info(f'Enabling sudo permissions for {entity}')
 
-		sudoers_dir = f"{self.target}/etc/sudoers.d"
+		sudoers_dir = self.target / "etc/sudoers.d"
 
 		# Creates directory if not exists
-		if not (sudoers_path := Path(sudoers_dir)).exists():
-			sudoers_path.mkdir(parents=True)
+		if not sudoers_dir.exists():
+			sudoers_dir.mkdir(parents=True)
 			# Guarantees sudoer confs directory recommended perms
-			os.chmod(sudoers_dir, 0o440)
+			sudoers_dir.chmod(0o440)
 			# Appends a reference to the sudoers file, because if we are here sudoers.d did not exist yet
-			with open(f'{self.target}/etc/sudoers', 'a') as sudoers:
+			with open(self.target / 'etc/sudoers', 'a') as sudoers:
 				sudoers.write('@includedir /etc/sudoers.d\n')
 
 		# We count how many files are there already so we know which number to prefix the file with
@@ -1500,13 +1493,13 @@ Exec = /bin/sh -c "{hook_command}"
 		# \ / : * ? " < > |
 		safe_entity_file_name = re.sub(r'(\\|\/|:|\*|\?|"|<|>|\|)', '', entity)
 
-		rule_file_name = f"{sudoers_dir}/{file_num_str}_{safe_entity_file_name}"
+		rule_file = sudoers_dir / f"{file_num_str}_{safe_entity_file_name}"
 
-		with open(rule_file_name, 'a') as sudoers:
+		with rule_file.open('a') as sudoers:
 			sudoers.write(f'{"%" if group else ""}{entity} ALL=(ALL) ALL\n')
 
 		# Guarantees sudoer conf file recommended perms
-		os.chmod(Path(rule_file_name), 0o440)
+		rule_file.chmod(0o440)
 
 	def create_users(self, users: User | list[User]) -> None:
 		if not isinstance(users, list):
