@@ -84,7 +84,6 @@ class BspwmProfile(XorgProfile):
 			'archlinux-tweak-tool-git',
 			'arcolinux-bspwm-git',
 			'arcolinux-polybar-git',
-			'arcolinux-polybar-git',
 			'arcolinux-powermenu-git',
 			'arcolinux-rofi-git',
 			'arcolinux-rofi-themes-git',
