@@ -222,12 +222,9 @@ class DeviceHandler:
 			# "mountpoint": "/mnt/archinstall/.snapshots"
 			# "mountpoints": ["/mnt/archinstall/.snapshots", "/mnt/archinstall/home", ..]
 			# so we'll determine the minimum common path and assume that's the root
-			try:
-				common_path = os.path.commonpath(lsblk_info.mountpoints)
-			except ValueError:
-				return subvol_infos
-
-			mountpoint = Path(common_path)
+			path_strings = [str(m) for m in lsblk_info.mountpoints]
+			common_prefix = os.path.commonprefix(path_strings)
+			mountpoint = Path(common_prefix)
 
 		try:
 			result = SysCommand(f'btrfs subvolume list {mountpoint}').decode()
@@ -242,13 +239,17 @@ class DeviceHandler:
 		# to the corresponding mountpoints
 		btrfs_subvol_info = dict(zip(lsblk_info.fsroots, lsblk_info.mountpoints))
 
-		# ID 256 gen 16 top level 5 path @
-		for line in result.splitlines():
-			# expected output format:
-			# ID 257 gen 8 top level 5 path @home
-			name = Path(line.split(' ')[-1])
-			sub_vol_mountpoint = btrfs_subvol_info.get('/' / name, None)
-			subvol_infos.append(_BtrfsSubvolumeInfo(name, sub_vol_mountpoint))
+		try:
+			# ID 256 gen 16 top level 5 path @
+			for line in result.splitlines():
+				# expected output format:
+				# ID 257 gen 8 top level 5 path @home
+				name = Path(line.split(' ')[-1])
+				sub_vol_mountpoint = btrfs_subvol_info.get(name, None)
+				subvol_infos.append(_BtrfsSubvolumeInfo(name, sub_vol_mountpoint))
+		except json.decoder.JSONDecodeError as err:
+			error(f"Could not decode lsblk JSON: {result}")
+			raise err
 
 		if not lsblk_info.mountpoint:
 			self.umount(dev_path)
