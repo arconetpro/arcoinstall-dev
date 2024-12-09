@@ -114,6 +114,7 @@ class XmonadProfile(XorgProfile):
 			'xfce4-screenshooter',
 			'xfce4-taskmanager',
 			'xfce4-terminal',
+			'xorg-xsetroot',
 			'xtitle-git',
 		]
 
