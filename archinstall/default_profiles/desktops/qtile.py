@@ -78,8 +78,6 @@ class QtileProfile(XorgProfile):
 			'arandr',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
-			'arcolinux-bspwm-git',
-			'arcolinux-polybar-git',
 			'arcolinux-powermenu-git',
 			'arcolinux-qtile-git',
 			'arcolinux-rofi-git',

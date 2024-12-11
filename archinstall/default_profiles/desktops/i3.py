@@ -105,7 +105,6 @@ class I3wmProfile(XorgProfile):
 			'picom-git',
 			'polkit-gnome',
 			'polybar',
-			'arcolinux-polybar-git',
 			'rofi-lbonn-wayland',
 			'thunar',
 			'thunar-archive-plugin',

@@ -98,7 +98,6 @@ class HerbstluftwmProfile(XorgProfile):
 			'picom-git',
 			'polkit-gnome',
 			'polybar',
-			'arcolinux-polybar-git',
 			'rofi-lbonn-wayland',
 			'sutils-git',
 			'thunar',

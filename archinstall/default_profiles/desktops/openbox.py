@@ -89,7 +89,6 @@ class OpenboxProfile(XorgProfile):
 			'arcolinux-openbox-xtended-git',
 			'arcolinux-pipemenus-git',
 			'arcolinux-polybar-git',
-			'arcolinux-polybar-git',
 			'arcolinux-powermenu-git',
 			'arcolinux-rofi-git',
 			'arcolinux-rofi-themes-git',
