@@ -134,7 +134,6 @@ class WayfireProfile(XorgProfile):
 			'wf-shell-git',
 			'wl-clipboard',
 			'wofi',
-			'xdg-desktop-portal-wlr',
 			'xfce4-terminal',
 			'yad',
 		]
