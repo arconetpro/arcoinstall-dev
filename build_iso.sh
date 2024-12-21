@@ -18,9 +18,9 @@ if [ -d /tmp/archlive ]; then
     exit 1
 else
 	tput setaf 3
-	echo "#####################################################"
-    echo "Folder /tmp/archlive successfully removed."
-	echo "#####################################################"
+	echo "############################################################"
+    echo "Folder /tmp/archlive successfully removed or not present."
+	echo "############################################################"
 	sleep 3
 	tput sgr0
 fi
