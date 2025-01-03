@@ -24,6 +24,9 @@ if TYPE_CHECKING:
 	_: Callable[[str], DeferredTranslation]
 
 
+ENC_IDENTIFIER = 'ainst'
+
+
 class DiskLayoutType(Enum):
 	Default = 'default_layout'
 	Manual = 'manual_partitioning'
@@ -96,7 +99,7 @@ class DiskLayoutConfiguration:
 			mods = device_handler.detect_pre_mounted_mods(path)
 			device_modifications.extend(mods)
 
-			storage['MOUNT_POINT'] = path
+			storage['arguments']['mount_point'] = path
 
 			config.mountpoint = path
 
@@ -447,11 +450,8 @@ class _PartitionInfo:
 	def from_partition(
 		cls,
 		partition: Partition,
+		lsblk_info: LsblkInfo,
 		fs_type: FilesystemType | None,
-		partn: int | None,
-		partuuid: str | None,
-		uuid: str | None,  # pylint: disable=redefined-outer-name
-		mountpoints: list[Path],
 		btrfs_subvol_infos: list[_BtrfsSubvolumeInfo] = []
 	) -> _PartitionInfo:
 		partition_type = PartitionType.get_type_from_code(partition.type)
@@ -478,11 +478,11 @@ class _PartitionInfo:
 			start=start,
 			length=length,
 			flags=flags,
-			partn=partn,
-			partuuid=partuuid,
-			uuid=uuid,
+			partn=lsblk_info.partn,
+			partuuid=lsblk_info.partuuid,
+			uuid=lsblk_info.uuid,
 			disk=partition.disk,
-			mountpoints=mountpoints,
+			mountpoints=lsblk_info.mountpoints,
 			btrfs_subvol_infos=btrfs_subvol_infos
 		)
 
@@ -919,7 +919,7 @@ class PartitionModification:
 	@property
 	def mapper_name(self) -> str | None:
 		if self.dev_path:
-			return f'{storage.get("ENC_IDENTIFIER", "ai")}{self.dev_path.name}'
+			return f'{ENC_IDENTIFIER}{self.dev_path.name}'
 		return None
 
 	def set_flag(self, flag: PartitionFlag) -> None:
@@ -1076,7 +1076,7 @@ class LvmVolume:
 	@property
 	def mapper_name(self) -> str | None:
 		if self.dev_path:
-			return f'{storage.get("ENC_IDENTIFIER", "ai")}{self.safe_dev_path.name}'
+			return f'{ENC_IDENTIFIER}{self.safe_dev_path.name}'
 		return None
 
 	@property
