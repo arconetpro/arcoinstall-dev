@@ -64,7 +64,7 @@ class SwayProfile(XorgProfile):
 			'arcolinux-gtk-surfn-arc-git',
 			'arcolinux-keyring',
 			'arcolinux-mirrorlist-git',
-			'arcolinux-pacman-git',
+			'arcoinstall-pacman-git',
 			'arcolinux-paru-git',
 			'arcolinux-root-git',
 			'arconet-variety-config',
