@@ -80,6 +80,7 @@ class BspwmProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'arandr',
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-bspwm-git',

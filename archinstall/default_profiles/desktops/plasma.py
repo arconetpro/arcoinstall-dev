@@ -80,6 +80,7 @@ class PlasmaProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-arc-kde',

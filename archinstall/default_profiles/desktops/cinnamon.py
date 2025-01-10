@@ -84,6 +84,7 @@ class CinnamonProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arcoinstall-system-config-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-arc-dawn-git',
 			'arcolinux-cinnamon-git',

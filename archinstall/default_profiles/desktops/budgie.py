@@ -79,6 +79,7 @@ class BudgieProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arcoinstall-system-config-git',
 			'archlinux-tweak-tool-git',
 		]
 

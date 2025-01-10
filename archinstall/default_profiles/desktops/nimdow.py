@@ -80,6 +80,7 @@ class NimdowProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'arandr',
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-nimdow-git',

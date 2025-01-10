@@ -91,6 +91,7 @@ class WayfireProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-foot-git',

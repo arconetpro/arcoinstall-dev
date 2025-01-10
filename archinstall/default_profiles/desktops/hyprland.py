@@ -91,6 +91,7 @@ class HyprlandProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-hyprland-git',

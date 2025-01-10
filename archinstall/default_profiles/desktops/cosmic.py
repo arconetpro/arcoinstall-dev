@@ -76,6 +76,7 @@ class CosmicProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'archlinux-tweak-tool-git',
+			'arcoinstall-system-config-git',
 		]
 
 	@override

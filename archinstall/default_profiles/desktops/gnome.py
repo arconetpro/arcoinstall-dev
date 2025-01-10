@@ -77,6 +77,7 @@ class GnomeProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'archlinux-tweak-tool-git',
+			'arcoinstall-system-config-git',
 			'arcolinux-gnome-git',
 			'extension-manager-git',
 			'gnome-tweaks',

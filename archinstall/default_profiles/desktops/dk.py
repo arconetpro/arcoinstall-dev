@@ -74,6 +74,7 @@ class DkProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'arandr',
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-arc-dawn-git',

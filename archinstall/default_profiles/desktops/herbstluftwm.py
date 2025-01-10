@@ -80,6 +80,7 @@ class HerbstluftwmProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'arandr',
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-herbstluftwm-git',
