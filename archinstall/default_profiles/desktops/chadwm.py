@@ -98,7 +98,6 @@ class ChadwmProfile(XorgProfile):
 			'lxappearance',
 			'make',
 			'meld',
-			'nomacs-qt6-git',
 			'numlockx',
 			'pavucontrol',
 			'picom-git',
