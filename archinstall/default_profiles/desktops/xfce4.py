@@ -85,6 +85,11 @@ class Xfce4Profile(XorgProfile):
 			'arconet-xfce',
 			'dmenu',
 			'file-roller',
+			## These are all packages from Chaotic-aur for testing purposes
+			#'colloid-icon-theme-git',
+			#'flat-remix',
+			#'colloid-nord-icon-theme-git',
+			#'colloid-nord-gtk-theme-git'
 		]
 
 	@override

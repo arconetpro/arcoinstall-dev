@@ -46,6 +46,8 @@ packages=(
 	python-pyparted
 	arcolinux-keyring
 	arcolinux-mirrorlist-git
+	#chaotic-keyring
+	#chaotic-mirrorlist
 )
 
 mkdir -p /tmp/archlive/airootfs/root/archinstall-git
