@@ -54,7 +54,6 @@ class Xfce4Profile(XorgProfile):
 			'feh',
 			'firefox',
 			'git',
-			'gvfs',
 			'gvfs-dnssd',
 			'gvfs-smb',
 			'hw-probe',

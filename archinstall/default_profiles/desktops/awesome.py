@@ -56,7 +56,6 @@ class AwesomeProfile(XorgProfile):
 			'duf',
 			'expac',
 			'fastfetch-git',
-			'feh',
 			'firefox',
 			'git',
 			'gvfs',

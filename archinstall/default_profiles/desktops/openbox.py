@@ -98,7 +98,6 @@ class OpenboxProfile(XorgProfile):
 			'arconet-xfce',
 			'awesome-terminal-fonts',
 			'conky-lua-archers',
-			'dmenu',
 			'file-roller',
 			'geany',
 			'lxappearance',

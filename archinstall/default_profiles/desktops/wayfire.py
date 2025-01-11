@@ -106,7 +106,6 @@ class WayfireProfile(XorgProfile):
 			'arconet-xfce',
 			'file-roller',
 			'foot',
-			'grim',
 			'kitty',
 			'lxappearance',
 			'mako',
@@ -134,7 +133,6 @@ class WayfireProfile(XorgProfile):
 			'wf-kill-git',
 			'wf-shell-git',
 			'wl-clipboard',
-			'wofi',
 			'xfce4-terminal',
 			'yad',
 		]

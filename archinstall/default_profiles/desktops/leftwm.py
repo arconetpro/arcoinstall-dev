@@ -91,7 +91,6 @@ class LeftwmProfile(XorgProfile):
 			'arcolinux-volumeicon-git',
 			'arconet-xfce',
 			'awesome-terminal-fonts',
-			'dmenu',
 			'file-roller',
 			'lxappearance',
 			'nerd-fonts-source-code-pro',

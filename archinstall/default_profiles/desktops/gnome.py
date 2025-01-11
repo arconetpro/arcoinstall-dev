@@ -80,7 +80,6 @@ class GnomeProfile(XorgProfile):
 			'arcoinstall-system-config-git',
 			'arcolinux-gnome-git',
 			'extension-manager-git',
-			'gnome-tweaks',
 		]
 
 	@override

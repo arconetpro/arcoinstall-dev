@@ -95,7 +95,6 @@ class XmonadProfile(XorgProfile):
 			'arcolinux-xmonad-polybar-git',
 			'arconet-xfce',
 			'awesome-terminal-fonts',
-			'dmenu',
 			'file-roller',
 			'lxappearance',
 			'numlockx',

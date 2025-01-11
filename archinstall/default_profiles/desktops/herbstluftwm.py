@@ -91,7 +91,6 @@ class HerbstluftwmProfile(XorgProfile):
 			'arcolinux-volumeicon-git',
 			'arconet-xfce',
 			'awesome-terminal-fonts',
-			'dmenu',
 			'file-roller',
 			'lxappearance',
 			'numlockx',

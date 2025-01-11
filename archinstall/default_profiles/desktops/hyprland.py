@@ -103,7 +103,6 @@ class HyprlandProfile(XorgProfile):
 			'arcolinux-wayland-app-hooks-git',
 			'arconet-xfce',
 			'file-roller',
-			'grim',
 			'hyprcursor-git',
 			'hyprland-git',
 			'kitty',
@@ -123,7 +122,6 @@ class HyprlandProfile(XorgProfile):
 			'thunar-volman',
 			'ttf-jetbrains-mono-nerd',
 			'waybar-git',
-			'wofi',
 			'xfce4-terminal',
 		]
 
