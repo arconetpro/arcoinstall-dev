@@ -19,7 +19,7 @@ classifiers = [
 ]
 dependencies = [
     "pyparted @ https://github.com//dcantrell/pyparted/archive/v3.13.0.tar.gz#sha512=26819e28d73420937874f52fda03eb50ab1b136574ea9867a69d46ae4976d38c4f26a2697fa70597eed90dd78a5ea209bafcc3227a17a7a5d63cff6d107c2b11",
-    "pydantic==2.10.4"
+    "pydantic==2.10.5"
 ]
 
 [project.urls]
@@ -33,9 +33,9 @@ dev = [
     "mypy==1.14.1",
     "flake8==7.1.1",
     "pre-commit==4.0.1",
-    "ruff==0.8.5",
+    "ruff==0.9.1",
     "pylint==3.3.3",
-    "pylint-pydantic==0.3.4",
+    "pylint-pydantic==0.3.5",
     "pytest==8.3.4",
 ]
 doc = ["sphinx"]
@@ -96,12 +96,15 @@ disallow_any_explicit = true
 
 [[tool.mypy.overrides]]
 module = "archinstall.lib.*"
-disallow_any_generics = false
-disallow_any_unimported = false
 disallow_incomplete_defs = false
 disallow_untyped_defs = false
 warn_return_any = false
 warn_unreachable = false
+
+[[tool.mypy.overrides]]
+module = "archinstall.lib.disk.*"
+# 'Any' imports are allowed because pyparted doesn't have type hints
+disallow_any_unimported = false
 
 [[tool.mypy.overrides]]
 module = "archinstall.lib.packages"
@@ -177,6 +180,7 @@ line-length = 160
 [tool.ruff.lint]
 select = [
     "ASYNC",  # flake8-async
+    "B",      # flake8-bugbear
     "C90",    # mccabe
     "DTZ",    # flake8-datetimez
     "E",      # pycodestyle errors
@@ -203,15 +207,19 @@ select = [
 ]
 
 ignore = [
+    "B006",     # mutable-argument-default
+    "B008",     # function-call-in-default-argument
+    "B904",     # raise-without-from-inside-except
+    "B905",     # zip-without-explicit-strict
     "PLC0415",  # import-outside-top-level
     "PLC1901",  # compare-to-empty-string
     "PLW1514",  # unspecified-encoding
     "PLW1641",  # eq-without-hash
     "PLW2901",  # redefined-loop-name
     "RUF005",   # collection-literal-concatenation
-    "RUF012",   # mutable-class-default
     "RUF015",   # unnecessary-iterable-allocation-for-first-element
     "RUF039",   # unraw-re-pattern
+    "RUF051",   # if-key-in-dict-del
     "UP037",    # quoted-annotation
     "W191",     # tab-indentation
 ]

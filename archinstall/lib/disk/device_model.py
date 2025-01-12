@@ -13,6 +13,7 @@ from pydantic import BaseModel, Field, ValidationInfo, field_serializer, field_v
 
 from ..exceptions import DiskError, SysCallError
 from ..general import SysCommand
+from ..hardware import SysInfo
 from ..output import debug
 from ..storage import storage
 
@@ -141,12 +142,59 @@ class DiskLayoutConfiguration:
 					flags=flags,
 					btrfs_subvols=SubvolumeModification.parse_args(partition.get('btrfs', [])),
 				)
-				# special 'invisible attr to internally identify the part mod
-				setattr(device_partition, '_obj_id', partition['obj_id'])
+				# special 'invisible' attr to internally identify the part mod
+				device_partition._obj_id = partition['obj_id']
 				device_partitions.append(device_partition)
 
 			device_modification.partitions = device_partitions
 			device_modifications.append(device_modification)
+
+		using_gpt = SysInfo.has_uefi()
+
+		for dev_mod in device_modifications:
+			dev_mod.partitions.sort(key=lambda p: (not p.is_delete(), p.start))
+
+			non_delete_partitions = [
+				part_mod for part_mod in dev_mod.partitions
+				if not part_mod.is_delete()
+			]
+
+			if not non_delete_partitions:
+				continue
+
+			first = non_delete_partitions[0]
+			if first.status == ModificationStatus.Create and not first.start.is_valid_start():
+				raise ValueError('First partition must start at no less than 1 MiB')
+
+			for i, current_partition in enumerate(non_delete_partitions[1:], start=1):
+				previous_partition = non_delete_partitions[i - 1]
+				if (
+					current_partition.status == ModificationStatus.Create
+					and current_partition.start < previous_partition.end
+				):
+					raise ValueError('Partitions overlap')
+
+			create_partitions = [
+				part_mod for part_mod in non_delete_partitions
+				if part_mod.status == ModificationStatus.Create
+			]
+
+			if not create_partitions:
+				continue
+
+			for part in create_partitions:
+				if (
+					part.start != part.start.align()
+					or part.length != part.length.align()
+				):
+					raise ValueError('Partition is misaligned')
+
+			last = create_partitions[-1]
+			total_size = dev_mod.device.device_info.total_size
+			if using_gpt and last.end > total_size.gpt_end():
+				raise ValueError('Partition overlaps backup GPT header')
+			elif last.end > total_size.align():
+				raise ValueError('Partition too large for device')
 
 		# Parse LVM configuration from settings
 		if (lvm_arg := disk_config.get('lvm_config', None)) is not None:
@@ -355,6 +403,17 @@ class Size:
 		else:
 			return self.si_unit_highest(include_unit)
 
+	def is_valid_start(self) -> bool:
+		return self >= Size(1, Unit.MiB, self.sector_size)
+
+	def align(self) -> Size:
+		align_norm = Size(1, Unit.MiB, self.sector_size)._normalize()
+		src_norm = self._normalize()
+		return self - Size(abs(src_norm % align_norm), Unit.B, self.sector_size)
+
+	def gpt_end(self) -> Size:
+		return self - Size(33, Unit.sectors, self.sector_size)
+
 	def _normalize(self) -> int:
 		"""
 		will normalize the value of the unit to Byte
@@ -380,11 +439,17 @@ class Size:
 		return self._normalize() <= other._normalize()
 
 	@override
-	def __eq__(self, other) -> bool:
+	def __eq__(self, other: object) -> bool:
+		if not isinstance(other, Size):
+			return NotImplemented
+
 		return self._normalize() == other._normalize()
 
 	@override
-	def __ne__(self, other) -> bool:
+	def __ne__(self, other: object) -> bool:
+		if not isinstance(other, Size):
+			return NotImplemented
+
 		return self._normalize() != other._normalize()
 
 	def __gt__(self, other: Size) -> bool:
@@ -802,7 +867,7 @@ class PartitionModification:
 	def __post_init__(self) -> None:
 		# needed to use the object as a dictionary key due to hash func
 		if not hasattr(self, '_obj_id'):
-			self._obj_id = uuid.uuid4()
+			self._obj_id: uuid.UUID | str = uuid.uuid4()
 
 		if self.is_exists_or_modify() and not self.dev_path:
 			raise ValueError('If partition marked as existing a path must be set')
@@ -907,11 +972,18 @@ class PartitionModification:
 	def is_modify(self) -> bool:
 		return self.status == ModificationStatus.Modify
 
+	def is_delete(self) -> bool:
+		return self.status == ModificationStatus.Delete
+
 	def exists(self) -> bool:
 		return self.status == ModificationStatus.Exist
 
 	def is_exists_or_modify(self) -> bool:
-		return self.status in [ModificationStatus.Exist, ModificationStatus.Modify]
+		return self.status in [
+			ModificationStatus.Exist,
+			ModificationStatus.Delete,
+			ModificationStatus.Modify
+		]
 
 	def is_create_or_modify(self) -> bool:
 		return self.status in [ModificationStatus.Create, ModificationStatus.Modify]
@@ -1061,7 +1133,7 @@ class LvmVolume:
 	def __post_init__(self) -> None:
 		# needed to use the object as a dictionary key due to hash func
 		if not hasattr(self, '_obj_id'):
-			self._obj_id = uuid.uuid4()
+			self._obj_id: uuid.UUID | str = uuid.uuid4()
 
 	@override
 	def __hash__(self) -> int:
@@ -1121,7 +1193,7 @@ class LvmVolume:
 			btrfs_subvols=SubvolumeModification.parse_args(arg.get('btrfs', []))
 		)
 
-		setattr(volume, '_obj_id', arg['obj_id'])
+		volume._obj_id = arg['obj_id']
 
 		return volume
 

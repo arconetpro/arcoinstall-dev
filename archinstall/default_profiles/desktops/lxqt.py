@@ -42,7 +42,7 @@ class LxqtProfile(XorgProfile):
 			'arcolinux-gtk-surfn-arc-git',
 			'arcolinux-keyring',
 			'arcolinux-mirrorlist-git',
-			'arcolinux-pacman-git',
+			'arcoinstall-pacman-git',
 			'arcolinux-paru-git',
 			'arcolinux-root-git',
 			'arconet-variety-config',
@@ -85,6 +85,7 @@ class LxqtProfile(XorgProfile):
 			'yay-git',
 			] + [
 			'arandr',
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-lxqt-git',

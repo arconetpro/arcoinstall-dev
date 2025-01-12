@@ -37,7 +37,7 @@ class Xfce4Profile(XorgProfile):
 			'arcolinux-gtk-surfn-arc-git',
 			'arcolinux-keyring',
 			'arcolinux-mirrorlist-git',
-			'arcolinux-pacman-git',
+			'arcoinstall-pacman-git',
 			'arcolinux-paru-git',
 			'arcolinux-root-git',
 			'arconet-variety-config',
@@ -54,7 +54,6 @@ class Xfce4Profile(XorgProfile):
 			'feh',
 			'firefox',
 			'git',
-			'gvfs',
 			'gvfs-dnssd',
 			'gvfs-smb',
 			'hw-probe',
@@ -79,12 +78,18 @@ class Xfce4Profile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-arc-dawn-git',
 			'arconet-xfce',
 			'dmenu',
 			'file-roller',
+			## These are all packages from Chaotic-aur for testing purposes
+			#'colloid-icon-theme-git',
+			#'flat-remix',
+			#'colloid-nord-icon-theme-git',
+			#'colloid-nord-gtk-theme-git'
 		]
 
 	@override

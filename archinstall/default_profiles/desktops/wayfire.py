@@ -23,11 +23,9 @@ if TYPE_CHECKING:
 
 class WayfireProfile(XorgProfile):
 	def __init__(self) -> None:
-		super().__init__(
-			"Wayfire",
-			ProfileType.WindowMgr,
-			description="Wayfire is a 3D Wayland compositor",
-		)
+		super().__init__('Wayfire', ProfileType.DesktopEnv, description='')
+
+		self.custom_settings = {'seat_access': None}
 
 	@property
 	@override
@@ -51,7 +49,7 @@ class WayfireProfile(XorgProfile):
 			'arcolinux-gtk-surfn-arc-git',
 			'arcolinux-keyring',
 			'arcolinux-mirrorlist-git',
-			'arcolinux-pacman-git',
+			'arcoinstall-pacman-git',
 			'arcolinux-paru-git',
 			'arcolinux-root-git',
 			'arconet-variety-config',
@@ -93,6 +91,7 @@ class WayfireProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-foot-git',
@@ -107,7 +106,6 @@ class WayfireProfile(XorgProfile):
 			'arconet-xfce',
 			'file-roller',
 			'foot',
-			'grim',
 			'kitty',
 			'lxappearance',
 			'mako',
@@ -135,8 +133,6 @@ class WayfireProfile(XorgProfile):
 			'wf-kill-git',
 			'wf-shell-git',
 			'wl-clipboard',
-			'wofi',
-			'xdg-desktop-portal-wlr',
 			'xfce4-terminal',
 			'yad',
 		]

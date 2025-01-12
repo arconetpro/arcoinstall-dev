@@ -38,7 +38,7 @@ class PlasmaProfile(XorgProfile):
 			'arcolinux-gtk-surfn-arc-git',
 			'arcolinux-keyring',
 			'arcolinux-mirrorlist-git',
-			'arcolinux-pacman-git',
+			'arcoinstall-pacman-git',
 			'arcolinux-paru-git',
 			'arcolinux-root-git',
 			'arconet-variety-config',
@@ -80,6 +80,7 @@ class PlasmaProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-arc-kde',
@@ -95,7 +96,7 @@ class PlasmaProfile(XorgProfile):
 			'dolphin-plugins',
 			'gwenview',
 			'kde-gtk-config',
-			'packagekit-qt6'
+			'packagekit-qt6',
 			'spectacle',
 			'surfn-plasma-dark-icons-git',
 			'surfn-plasma-light-icons-git',

@@ -72,7 +72,7 @@ class Installer:
 		if accessibility_tools_in_use():
 			self._base_packages.extend(__accessibility_packages__)
 
-		self.post_base_install: list[Callable] = []
+		self.post_base_install: list[Callable] = []  # type: ignore[type-arg]
 
 		# TODO: Figure out which one of these two we'll use.. But currently we're mixing them..
 		storage['session'] = self
@@ -147,11 +147,11 @@ class Installer:
 		if not storage['arguments'].get('skip_ntp', False):
 			info(_('Waiting for time sync (timedatectl show) to complete.'))
 
-			_started_wait = time.time()
-			_notified = False
+			started_wait = time.time()
+			notified = False
 			while True:
-				if not _notified and time.time() - _started_wait > 5:
-					_notified = True
+				if not notified and time.time() - started_wait > 5:
+					notified = True
 					warn(
 						_("Time synchronization not completing, while you wait - check the docs for workarounds: https://archinstall.readthedocs.io/"))
 
@@ -242,7 +242,7 @@ class Installer:
 				break
 
 		for mod in sorted_device_mods:
-			not_pv_part_mods = list(filter(lambda x: x not in pvs, mod.partitions))
+			not_pv_part_mods = [p for p in mod.partitions if p not in pvs]
 
 			# partitions have to mounted in the right order on btrfs the mountpoint will
 			# be empty as the actual subvolumes are getting mounted instead so we'll use
@@ -363,8 +363,8 @@ class Installer:
 	) -> None:
 		for subvol in sorted(subvolumes, key=lambda x: x.relative_mountpoint):
 			mountpoint = self.target / subvol.relative_mountpoint
-			mount_options = mount_options + [f'subvol={subvol.name}']
-			disk.device_handler.mount(dev_path, mountpoint, options=mount_options)
+			options = mount_options + [f'subvol={subvol.name}']
+			disk.device_handler.mount(dev_path, mountpoint, options=options)
 
 	def generate_key_files(self) -> None:
 		match self._disk_encryption.encryption_type:
@@ -836,13 +836,13 @@ class Installer:
 		pacman_conf = pacman.Config(self.target)
 		if multilib:
 			info("The multilib flag is set. This system will be installed with the multilib repository enabled.")
-			pacman_conf.enable(pacman.Repo.Multilib)
+			pacman_conf.enable(pacman.Repo.MULTILIB)
 		else:
 			info("The multilib flag is not set. This system will be installed without multilib repositories enabled.")
 
 		if testing:
 			info("The testing flag is set. This system will be installed with testing repositories enabled.")
-			pacman_conf.enable(pacman.Repo.Testing)
+			pacman_conf.enable(pacman.Repo.TESTING)
 		else:
 			info("The testing flag is not set. This system will be installed without testing repositories enabled.")
 
@@ -1159,7 +1159,7 @@ class Installer:
 		config = grub_default.read_text()
 
 		kernel_parameters = ' '.join(self._get_kernel_params(root, False, False))
-		config = re.sub(r'(GRUB_CMDLINE_LINUX=")("\n)', rf'\1{kernel_parameters}\2', config, 1)
+		config = re.sub(r'(GRUB_CMDLINE_LINUX=")("\n)', rf'\1{kernel_parameters}\2', config, count=1)
 
 		grub_default.write_text(config)
 
@@ -1633,7 +1633,7 @@ Exec = /bin/sh -c "{hook_command}"
 		last_execution_time = SysCommand(
 			f"systemctl show --property=ActiveEnterTimestamp --no-pager {service_name}",
 			environment_vars={'SYSTEMD_COLORS': '0'}
-		).decode().lstrip('ActiveEnterTimestamp=')
+		).decode().removeprefix('ActiveEnterTimestamp=')
 
 		if not last_execution_time:
 			return None

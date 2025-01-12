@@ -49,7 +49,7 @@ class HyprlandProfile(XorgProfile):
 			'arcolinux-gtk-surfn-arc-git',
 			'arcolinux-keyring',
 			'arcolinux-mirrorlist-git',
-			'arcolinux-pacman-git',
+			'arcoinstall-pacman-git',
 			'arcolinux-paru-git',
 			'arcolinux-root-git',
 			'arconet-variety-config',
@@ -91,6 +91,7 @@ class HyprlandProfile(XorgProfile):
 			'xdg-user-dirs',
 			'yay-git',
 			] + [
+			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
 			'arcolinux-hyprland-git',
@@ -102,7 +103,6 @@ class HyprlandProfile(XorgProfile):
 			'arcolinux-wayland-app-hooks-git',
 			'arconet-xfce',
 			'file-roller',
-			'grim',
 			'hyprcursor-git',
 			'hyprland-git',
 			'kitty',
@@ -122,7 +122,6 @@ class HyprlandProfile(XorgProfile):
 			'thunar-volman',
 			'ttf-jetbrains-mono-nerd',
 			'waybar-git',
-			'wofi',
 			'xfce4-terminal',
 		]
 
