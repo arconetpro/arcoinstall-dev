@@ -88,3 +88,7 @@ find /tmp/archlive
 cd /tmp/archlive
 
 mkarchiso -v -w work/ -o out/ ./
+
+date=$(date +%Y.%m.%d)
+
+cp /tmp/archlive/work/iso/arch/pkglist.x86_64.txt  /tmp/archlive/out/archlinux-$date-x86_64.iso.pkglist.txt
