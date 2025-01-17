@@ -115,9 +115,8 @@ class SysCommandWorker:
 		if isinstance(cmd, str):
 			cmd = shlex.split(cmd)
 
-		if cmd:
-			if cmd[0][0] != '/' and cmd[0][:2] != './':  # Path() does not work well
-				cmd[0] = locate_binary(cmd[0])
+		if cmd and not cmd[0].startswith(('/', './')):  # Path() does not work well
+			cmd[0] = locate_binary(cmd[0])
 
 		self.cmd = cmd
 		self.callbacks = callbacks or {}
@@ -458,7 +457,7 @@ class SysCommand:
 
 def _pid_exists(pid: int) -> bool:
 	try:
-		return any(subprocess.check_output(['/usr/bin/ps', '--no-headers', '-o', 'pid', '-p', str(pid)]).strip())
+		return any(subprocess.check_output(['ps', '--no-headers', '-o', 'pid', '-p', str(pid)]).strip())
 	except subprocess.CalledProcessError:
 		return False
 
