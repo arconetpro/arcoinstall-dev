@@ -20,6 +20,7 @@ class AwesomeProfile(XorgProfile):
 	def packages(self) -> list[str]:
 		return super().packages + [
 			'awesome',
+			'alacritty',
 			'xorg-xinit',
 			'xorg-xrandr',
 			'xterm',
@@ -31,7 +32,6 @@ class AwesomeProfile(XorgProfile):
 			'xsel',
 			] + [
 			'a-candy-beauty-icon-theme-git',
-			'alacritty',
 			'arc-gtk-theme',
 			'arcolinux-alacritty-git',
 			'arcolinux-app-glade-git',

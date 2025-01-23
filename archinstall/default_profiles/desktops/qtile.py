@@ -20,9 +20,9 @@ class QtileProfile(XorgProfile):
 	def packages(self) -> list[str]:
 		return [
 			'qtile',
+			'alacritty'
 			] + [
 			'a-candy-beauty-icon-theme-git',
-			'alacritty',
 			'arc-gtk-theme',
 			'arcolinux-alacritty-git',
 			'arcolinux-app-glade-git',

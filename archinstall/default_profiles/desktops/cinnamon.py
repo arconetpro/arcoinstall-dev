@@ -27,6 +27,7 @@ class CinnamonProfile(XorgProfile):
 			"bluez-utils",
 			"engrampa",
 			"gnome-screenshot",
+			"gvfs-smb",
 			"xed",
 			"xdg-user-dirs-gtk"
 			] + [
@@ -61,7 +62,6 @@ class CinnamonProfile(XorgProfile):
 			'git',
 			'gvfs',
 			'gvfs-dnssd',
-			'gvfs-smb',
 			'hw-probe',
 			'man-db',
 			'man-pages',
