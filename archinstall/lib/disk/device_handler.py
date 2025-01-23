@@ -109,11 +109,8 @@ class DeviceHandler:
 				partition_infos.append(
 					_PartitionInfo.from_partition(
 						partition,
+						lsblk_info,
 						fs_type,
-						lsblk_info.partn,
-						lsblk_info.partuuid,
-						lsblk_info.uuid,
-						lsblk_info.mountpoints,
 						subvol_infos
 					)
 				)
@@ -154,6 +151,8 @@ class DeviceHandler:
 	) -> FilesystemType | None:
 		try:
 			if partition.fileSystem:
+				if partition.fileSystem.type == FilesystemType.LinuxSwap.parted_value:
+					return FilesystemType.LinuxSwap
 				return FilesystemType(partition.fileSystem.type)
 			elif lsblk_info is not None:
 				return FilesystemType(lsblk_info.fstype) if lsblk_info.fstype else None
@@ -222,9 +221,12 @@ class DeviceHandler:
 			# "mountpoint": "/mnt/archinstall/.snapshots"
 			# "mountpoints": ["/mnt/archinstall/.snapshots", "/mnt/archinstall/home", ..]
 			# so we'll determine the minimum common path and assume that's the root
-			path_strings = [str(m) for m in lsblk_info.mountpoints]
-			common_prefix = os.path.commonprefix(path_strings)
-			mountpoint = Path(common_prefix)
+			try:
+				common_path = os.path.commonpath(lsblk_info.mountpoints)
+			except ValueError:
+				return subvol_infos
+
+			mountpoint = Path(common_path)
 
 		try:
 			result = SysCommand(f'btrfs subvolume list {mountpoint}').decode()
@@ -239,17 +241,13 @@ class DeviceHandler:
 		# to the corresponding mountpoints
 		btrfs_subvol_info = dict(zip(lsblk_info.fsroots, lsblk_info.mountpoints))
 
-		try:
-			# ID 256 gen 16 top level 5 path @
-			for line in result.splitlines():
-				# expected output format:
-				# ID 257 gen 8 top level 5 path @home
-				name = Path(line.split(' ')[-1])
-				sub_vol_mountpoint = btrfs_subvol_info.get(name, None)
-				subvol_infos.append(_BtrfsSubvolumeInfo(name, sub_vol_mountpoint))
-		except json.decoder.JSONDecodeError as err:
-			error(f"Could not decode lsblk JSON: {result}")
-			raise err
+		# ID 256 gen 16 top level 5 path @
+		for line in result.splitlines():
+			# expected output format:
+			# ID 257 gen 8 top level 5 path @home
+			name = Path(line.split(' ')[-1])
+			sub_vol_mountpoint = btrfs_subvol_info.get('/' / name, None)
+			subvol_infos.append(_BtrfsSubvolumeInfo(name, sub_vol_mountpoint))
 
 		if not lsblk_info.mountpoint:
 			self.umount(dev_path)
@@ -263,6 +261,7 @@ class DeviceHandler:
 		additional_parted_options: list[str] = []
 	) -> None:
 		mkfs_type = fs_type.value
+		command = None
 		options = []
 
 		match fs_type:
@@ -279,12 +278,15 @@ class DeviceHandler:
 			case FilesystemType.Ntfs:
 				# Skip zeroing and bad sector check
 				options.append('--fast')
-			case FilesystemType.Reiserfs:
-				pass
+			case FilesystemType.LinuxSwap:
+				command = "mkswap"
 			case _:
 				raise UnknownFilesystemFormat(f'Filetype "{fs_type.value}" is not supported')
 
-		cmd = [f'mkfs.{mkfs_type}', *options, *additional_parted_options, str(path)]
+		if not command:
+			command = f'mkfs.{mkfs_type}'
+
+		cmd = [command, *options, *additional_parted_options, str(path)]
 
 		debug('Formatting filesystem:', ' '.join(cmd))
 
@@ -540,7 +542,8 @@ class DeviceHandler:
 			length=length_sector.value
 		)
 
-		filesystem = FileSystem(type=part_mod.safe_fs_type.value, geometry=geometry)
+		fs_value = part_mod.safe_fs_type.parted_value
+		filesystem = FileSystem(type=fs_value, geometry=geometry)
 
 		partition = Partition(
 			disk=disk,
@@ -553,7 +556,7 @@ class DeviceHandler:
 			partition.setFlag(flag.flag_id)
 
 		debug(f'\tType: {part_mod.type.value}')
-		debug(f'\tFilesystem: {part_mod.safe_fs_type.value}')
+		debug(f'\tFilesystem: {fs_value}')
 		debug(f'\tGeometry: {start_sector.value} start sector, {length_sector.value} length')
 
 		try:
@@ -726,6 +729,13 @@ class DeviceHandler:
 			self._setup_partition(part_mod, modification.device, disk, requires_delete=requires_delete)
 
 		disk.commit()
+
+	@staticmethod
+	def swapon(path: Path) -> None:
+		try:
+			SysCommand(['swapon', str(path)])
+		except SysCallError as err:
+			raise DiskError(f'Could not enable swap {path}:\n{err.message}')
 
 	def mount(
 		self,

@@ -91,7 +91,7 @@ class AbstractCurses(metaclass=ABCMeta):
 			return False
 
 	def help_entry(self) -> ViewportEntry:
-		return ViewportEntry(str(_('Press ? for help')), 0, 0, STYLE.NORMAL)
+		return ViewportEntry(str(_('Press Ctrl+h for help')), 0, 0, STYLE.NORMAL)
 
 	def _show_help(self) -> None:
 		if not self._help_window:
@@ -114,8 +114,8 @@ class AbstractCurses(metaclass=ABCMeta):
 		full_header = []
 
 		if header:
-			for header in header.split('\n'):
-				full_header += [ViewportEntry(header, cur_row, offset, STYLE.NORMAL)]
+			for line in header.split('\n'):
+				full_header += [ViewportEntry(line, cur_row, offset, STYLE.NORMAL)]
 				cur_row += 1
 
 		return full_header
@@ -849,7 +849,7 @@ class SelectMenu(AbstractCurses):
 		self._interrupt_warning = reset_warning_msg
 		self._header = header
 
-		header_offset = self._get_header_offset()
+		header_offset = self._get_header_offset(header)
 		self._headers = self.get_header_entries(header, offset=header_offset)
 
 		if self._interrupt_warning is None:
@@ -875,11 +875,19 @@ class SelectMenu(AbstractCurses):
 
 		self._init_viewports(preview_size)
 
-	def _get_header_offset(self) -> int:
-		# any changes here will impact the list manager table view
-		offset = len(self._cursor_char) + 1
-		if self._multi:
-			offset += 3
+	def _get_header_offset(self, header: str | None) -> int:
+		# WARNING: any changes here will impact the list manager table view
+		if self._orientation == Orientation.HORIZONTAL:
+			return 0
+
+		lines = header.split('\n') if header else []
+		table_header = [line for line in lines if '|' in line]
+		longest_header = len(table_header[0]) if table_header else 0
+		longest_entry = self._item_group.max_width
+
+		delta = abs(longest_header - longest_entry)
+		offset = delta + 3  # 3 because it seems to align it...
+
 		return offset
 
 	def run(self) -> Result:

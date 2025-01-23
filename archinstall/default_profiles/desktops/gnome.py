@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class GnomeProfile(XorgProfile):
 	def __init__(self) -> None:
-		super().__init__('Gnome', ProfileType.DesktopEnv, description='')
+		super().__init__('GNOME', ProfileType.DesktopEnv, description='')
 
 	@property
 	@override

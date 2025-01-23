@@ -49,7 +49,8 @@ def select_devices(preset: list[disk.BDevice] | None = []) -> list[disk.BDevice]
 		multi=True,
 		preview_style=PreviewStyle.BOTTOM,
 		preview_size='auto',
-		preview_frame=FrameProperties.max('Partitions')
+		preview_frame=FrameProperties.max('Partitions'),
+		allow_skip=True
 	).run()
 
 	match result.type_:
@@ -143,12 +144,14 @@ def select_disk_config(
 				output = 'You will use whatever drive-setup is mounted at the specified directory\n'
 				output += "WARNING: Archinstall won't check the suitability of this setup\n"
 
-				path = prompt_dir(str(_('Root mount directory')), output, allow_skip=False)
-				assert path is not None
+				path = prompt_dir(str(_('Root mount directory')), output, allow_skip=True)
+
+				if path is None:
+					return None
 
 				mods = disk.device_handler.detect_pre_mounted_mods(path)
 
-				storage['MOUNT_POINT'] = path
+				storage['arguments']['mount_point'] = path
 
 				return disk.DiskLayoutConfiguration(
 					config_type=disk.DiskLayoutType.Pre_mount,
@@ -342,8 +345,9 @@ def suggest_single_disk_layout(
 	using_gpt = SysInfo.has_uefi()
 
 	if using_gpt:
-		# Remove space for end alignment buffer
-		available_space -= disk.Size(1, disk.Unit.MiB, sector_size)
+		available_space = available_space.gpt_end()
+
+	available_space = available_space.align()
 
 	# Used for reference: https://wiki.archlinux.org/title/partitioning
 	# 2 MiB is unallocated for GRUB on BIOS. Potentially unneeded for other bootloaders?
@@ -461,7 +465,7 @@ def suggest_multi_disk_layout(
 		filesystem_type = select_main_filesystem_format(advanced_options)
 
 	# find proper disk for /home
-	possible_devices = list(filter(lambda x: x.device_info.total_size >= min_home_partition_size, devices))
+	possible_devices = [d for d in devices if d.device_info.total_size >= min_home_partition_size]
 	home_device = max(possible_devices, key=lambda d: d.device_info.total_size) if possible_devices else None
 
 	# find proper device for /root
@@ -500,9 +504,6 @@ def suggest_multi_disk_layout(
 	root_device_sector_size = root_device_modification.device.device_info.sector_size
 	home_device_sector_size = home_device_modification.device.device_info.sector_size
 
-	root_align_buffer = disk.Size(1, disk.Unit.MiB, root_device_sector_size)
-	home_align_buffer = disk.Size(1, disk.Unit.MiB, home_device_sector_size)
-
 	using_gpt = SysInfo.has_uefi()
 
 	# add boot partition to the root device
@@ -513,7 +514,9 @@ def suggest_multi_disk_layout(
 	root_length = root_device.device_info.total_size - root_start
 
 	if using_gpt:
-		root_length -= root_align_buffer
+		root_length = root_length.gpt_end()
+
+	root_length = root_length.align()
 
 	# add root partition to the root device
 	root_partition = disk.PartitionModification(
@@ -527,13 +530,15 @@ def suggest_multi_disk_layout(
 	)
 	root_device_modification.add_partition(root_partition)
 
-	home_start = home_align_buffer
+	home_start = disk.Size(1, disk.Unit.MiB, home_device_sector_size)
 	home_length = home_device.device_info.total_size - home_start
 
 	flags = []
 	if using_gpt:
-		home_length -= home_align_buffer
+		home_length = home_length.gpt_end()
 		flags.append(disk.PartitionFlag.LINUX_HOME)
+
+	home_length = home_length.align()
 
 	# add home partition to home device
 	home_partition = disk.PartitionModification(
@@ -616,7 +621,7 @@ def suggest_lvm_layout(
 	root_vol_size = disk.Size(20, disk.Unit.GiB, disk.SectorSize.default())
 	home_vol_size = total_vol_available - root_vol_size
 
-	lvm_vol_group = disk.LvmVolumeGroup(vg_grp_name, pvs=other_part, )
+	lvm_vol_group = disk.LvmVolumeGroup(vg_grp_name, pvs=other_part)
 
 	root_vol = disk.LvmVolume(
 		status=disk.LvmVolumeStatus.Create,

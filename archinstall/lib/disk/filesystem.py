@@ -49,7 +49,7 @@ class FilesystemHandler:
 			debug('Disk layout configuration is set to pre-mount, not performing any operations')
 			return
 
-		device_mods = list(filter(lambda x: len(x.partitions) > 0, self._disk_config.device_modifications))
+		device_mods = [d for d in self._disk_config.device_modifications if d.partitions]
 
 		if not device_mods:
 			debug('No modifications required')
@@ -72,6 +72,8 @@ class FilesystemHandler:
 
 		for mod in device_mods:
 			device_handler.partition(mod, partition_table=partition_table)
+
+		device_handler.udev_sync()
 
 		if self._disk_config.lvm_config:
 			for mod in device_mods:

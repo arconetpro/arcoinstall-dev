@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import os
-import pathlib
 import re
 import secrets
 import shlex
@@ -16,6 +15,7 @@ import urllib.parse
 from collections.abc import Callable, Iterator
 from datetime import date, datetime
 from enum import Enum
+from pathlib import Path
 from select import EPOLLHUP, EPOLLIN, epoll
 from shutil import which
 from typing import TYPE_CHECKING, Any, override
@@ -73,7 +73,7 @@ def jsonify(obj: Any, safe: bool = True) -> Any:
 		return obj.isoformat()
 	if isinstance(obj, list | set | tuple):
 		return [jsonify(item, safe) for item in obj]
-	if isinstance(obj, pathlib.Path):
+	if isinstance(obj, Path):
 		return str(obj)
 	if hasattr(obj, "__dict__"):
 		return vars(obj)
@@ -107,26 +107,25 @@ class SysCommandWorker:
 		cmd: str | list[str],
 		callbacks: dict[str, Any] | None = None,
 		peek_output: bool | None = False,
-		environment_vars: dict[str, Any] | None = None,
+		environment_vars: dict[str, str] | None = None,
 		logfile: None = None,
 		working_directory: str | None = './',
 		remove_vt100_escape_codes_from_lines: bool = True
 	):
-		callbacks = callbacks or {}
-		environment_vars = environment_vars or {}
-
 		if isinstance(cmd, str):
 			cmd = shlex.split(cmd)
 
-		if cmd:
-			if cmd[0][0] != '/' and cmd[0][:2] != './':  # pathlib.Path does not work well
-				cmd[0] = locate_binary(cmd[0])
+		if cmd and not cmd[0].startswith(('/', './')):  # Path() does not work well
+			cmd[0] = locate_binary(cmd[0])
 
 		self.cmd = cmd
-		self.callbacks = callbacks
+		self.callbacks = callbacks or {}
 		self.peek_output = peek_output
 		# define the standard locale for command outputs. For now the C ascii one. Can be overridden
-		self.environment_vars = {**storage.get('CMD_LOCALE', {}), **environment_vars}
+		self.environment_vars = {'LC_ALL': 'C'}
+		if environment_vars:
+			self.environment_vars.update(environment_vars)
+
 		self.logfile = logfile
 		self.working_directory = working_directory
 
@@ -245,7 +244,7 @@ class SysCommandWorker:
 				except UnicodeDecodeError:
 					return False
 
-			peak_logfile = pathlib.Path(f"{storage['LOG_PATH']}/cmd_output.txt")
+			peak_logfile = Path(f"{storage['LOG_PATH']}/cmd_output.txt")
 
 			change_perm = False
 			if peak_logfile.exists() is False:
@@ -255,7 +254,7 @@ class SysCommandWorker:
 				peek_output_log.write(str(output))
 
 			if change_perm:
-				os.chmod(str(peak_logfile), stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP)
+				peak_logfile.chmod(stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP)
 
 			sys.stdout.write(str(output))
 			sys.stdout.flush()
@@ -304,7 +303,7 @@ class SysCommandWorker:
 
 		# https://stackoverflow.com/questions/4022600/python-pty-fork-how-does-it-work
 		if not self.pid:
-			history_logfile = pathlib.Path(f"{storage['LOG_PATH']}/cmd_history.txt")
+			history_logfile = Path(f"{storage['LOG_PATH']}/cmd_history.txt")
 
 			change_perm = False
 			if history_logfile.exists() is False:
@@ -315,14 +314,10 @@ class SysCommandWorker:
 					cmd_log.write(f"{time.time()} {self.cmd}\n")
 
 				if change_perm:
-					os.chmod(str(history_logfile), stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP)
+					history_logfile.chmod(stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP)
 			except (PermissionError, FileNotFoundError):
 				# If history_logfile does not exist, ignore the error
 				pass
-			except Exception as e:
-				exception_type = type(e).__name__
-				error(f"Unexpected {exception_type} occurred in {self.cmd}: {e}")
-				raise e
 
 			if storage.get('arguments', {}).get('debug'):
 				debug(f"Executing: {self.cmd}")
@@ -353,7 +348,7 @@ class SysCommand:
 		callbacks: dict[str, Callable[[Any], Any]] = {},
 		start_callback: Callable[[Any], Any] | None = None,
 		peek_output: bool | None = False,
-		environment_vars: dict[str, Any] | None = None,
+		environment_vars: dict[str, str] | None = None,
 		working_directory: str | None = './',
 		remove_vt100_escape_codes_from_lines: bool = True):
 
@@ -462,7 +457,7 @@ class SysCommand:
 
 def _pid_exists(pid: int) -> bool:
 	try:
-		return any(subprocess.check_output(['/usr/bin/ps', '--no-headers', '-o', 'pid', '-p', str(pid)]).strip())
+		return any(subprocess.check_output(['ps', '--no-headers', '-o', 'pid', '-p', str(pid)]).strip())
 	except subprocess.CalledProcessError:
 		return False
 
@@ -481,7 +476,7 @@ def run_custom_user_commands(commands: list[str], installation: Installer) -> No
 		os.unlink(chroot_path)
 
 
-def json_stream_to_structure(configuration_identifier: str, stream: str, target: dict) -> bool:
+def json_stream_to_structure(configuration_identifier: str, stream: str, target: dict[str, Any]) -> bool:
 	"""
 	Load a JSON encoded dictionary from a stream and merge it into an existing dictionary.
 	A stream can be a filepath, a URL or a raw JSON string.
@@ -500,7 +495,7 @@ def json_stream_to_structure(configuration_identifier: str, stream: str, target:
 			return False
 
 	# Try using the stream as a filepath that should be read
-	if raw is None and (path := pathlib.Path(stream)).exists():
+	if raw is None and (path := Path(stream)).exists():
 		try:
 			raw = path.read_text()
 		except Exception as err:

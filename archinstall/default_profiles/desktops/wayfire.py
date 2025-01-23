@@ -23,9 +23,11 @@ if TYPE_CHECKING:
 
 class WayfireProfile(XorgProfile):
 	def __init__(self) -> None:
-		super().__init__('Wayfire', ProfileType.DesktopEnv, description='')
-
-		self.custom_settings = {'seat_access': None}
+		super().__init__(
+			"Wayfire",
+			ProfileType.WindowMgr,
+			description="Wayfire is a 3D Wayland compositor",
+		)
 
 	@property
 	@override

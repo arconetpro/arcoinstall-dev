@@ -41,7 +41,7 @@ if TYPE_CHECKING:
 	_: Callable[[str], DeferredTranslation]
 
 
-__version__ = "3.0.1"
+__version__ = "3.0.2"
 storage['__version__'] = __version__
 
 # add the custom _ as a builtin, it can now be used anywhere in the
@@ -77,7 +77,7 @@ def define_arguments() -> None:
 	parser.add_argument("--dry-run", "--dry_run", action="store_true",
 						help="Generates a configuration file and then exits instead of performing an installation")
 	parser.add_argument("--script", default="guided", nargs="?", help="Script to run for installation", type=str)
-	parser.add_argument("--mount-point", "--mount_point", nargs="?", type=str,
+	parser.add_argument("--mount-point", "--mount_point", default=Path("/mnt/archinstall"), nargs="?", type=Path,
 						help="Define an alternate mount point for installation")
 	parser.add_argument("--skip-ntp", action="store_true", help="Disables NTP checks during installation", default=False)
 	parser.add_argument("--debug", action="store_true", default=False, help="Adds debug info into the log")
@@ -90,7 +90,7 @@ def define_arguments() -> None:
 						help="Skip the version check when running archinstall")
 
 
-if 'sphinx' not in sys.modules:
+if 'sphinx' not in sys.modules and 'pylint' not in sys.modules:
 	if '--help' in sys.argv or '-h' in sys.argv:
 		define_arguments()
 		parser.print_help()
@@ -266,17 +266,19 @@ def load_config() -> None:
 
 def post_process_arguments(args: dict[str, Any]) -> None:
 	storage['arguments'] = args
-	if mountpoint := args.get('mount_point', None):
-		storage['MOUNT_POINT'] = Path(mountpoint)
 
-	if args.get('debug', False):
+	if args.get('debug'):
 		warn(f"Warning: --debug mode will write certain credentials to {storage['LOG_PATH']}/{storage['LOG_FILE']}!")
 
-	if args.get('plugin', None):
+	if args.get('plugin'):
 		path = args['plugin']
 		load_plugin(path)
 
-	load_config()
+	try:
+		load_config()
+	except ValueError as err:
+		warn(str(err))
+		exit(1)
 
 
 define_arguments()
@@ -319,7 +321,7 @@ def main() -> None:
 	OR straight as a module: python -m archinstall
 	In any case we will be attempting to load the provided script to be run from the scripts/ folder
 	"""
-	if not arguments.get('skip_version_check', False):
+	if not arguments.get('skip_version_check'):
 		_check_new_version()
 
 	script = arguments.get('script', None)

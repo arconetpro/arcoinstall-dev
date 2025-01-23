@@ -1,5 +1,4 @@
 import json
-import os
 import readline
 import stat
 from pathlib import Path
@@ -21,7 +20,7 @@ if TYPE_CHECKING:
 
 
 class ConfigurationOutput:
-	def __init__(self, config: dict):
+	def __init__(self, config: dict[str, Any]):
 		"""
 		Configuration output handler to parse the existing configuration data structure and prepare for output on the
 		console and for saving it to configuration files
@@ -117,21 +116,21 @@ class ConfigurationOutput:
 		if self._is_valid_path(dest_path):
 			target = dest_path / self._user_config_file
 			target.write_text(self.user_config_to_json())
-			os.chmod(target, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP)
+			target.chmod(stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP)
 
 	def save_user_creds(self, dest_path: Path) -> None:
 		if self._is_valid_path(dest_path):
 			if user_creds := self.user_credentials_to_json():
 				target = dest_path / self._user_creds_file
 				target.write_text(user_creds)
-				os.chmod(target, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP)
+				target.chmod(stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP)
 
 	def save(self, dest_path: Path | None = None) -> None:
-		dest_path = dest_path or self._default_save_path
+		save_path = dest_path or self._default_save_path
 
-		if self._is_valid_path(dest_path):
-			self.save_user_config(dest_path)
-			self.save_user_creds(dest_path)
+		if self._is_valid_path(save_path):
+			self.save_user_config(save_path)
+			self.save_user_creds(save_path)
 
 
 def save_config(config: dict[str, Any]) -> None:

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum, auto
 
 from ...default_profiles.applications.pipewire import PipewireProfile
 from ..hardware import SysInfo
@@ -7,11 +7,10 @@ from ..installer import Installer
 from ..output import info
 
 
-@dataclass
-class Audio(Enum):
-	NoAudio = 'No audio server'
-	Pipewire = 'pipewire'
-	Pulseaudio = 'pulseaudio'
+class Audio(StrEnum):
+	NO_AUDIO = 'No audio server'
+	PIPEWIRE = auto()
+	PULSEAUDIO = auto()
 
 
 @dataclass
@@ -36,12 +35,12 @@ class AudioConfiguration:
 		info(f'Installing audio server: {self.audio.name}')
 
 		match self.audio:
-			case Audio.Pipewire:
+			case Audio.PIPEWIRE:
 				PipewireProfile().install(installation)
-			case Audio.Pulseaudio:
+			case Audio.PULSEAUDIO:
 				installation.add_additional_packages("pulseaudio")
 
-		if self.audio != Audio.NoAudio:
+		if self.audio != Audio.NO_AUDIO:
 			if SysInfo.requires_sof_fw():
 				installation.add_additional_packages('sof-firmware')
 

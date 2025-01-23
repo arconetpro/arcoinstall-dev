@@ -94,7 +94,7 @@ class ArchConfig:
 		if bootloader_config := args_config.get('bootloader', None):
 			arch_config.bootloader = Bootloader.from_arg(bootloader_config)
 
-		if args_config.get('uki', False) and not arch_config.bootloader.has_uki_support():
+		if args_config.get('uki') and not arch_config.bootloader.has_uki_support():
 			arch_config.uki = False
 
 		if audio_config := args_config.get('audio_config', None):
@@ -272,9 +272,6 @@ class ArchConfigHandler:
 		if args.config is None:
 			args.silent = False
 
-		if args.mount_point is not None:
-			storage['MOUNT_POINT'] = Path(args.mount_point)
-
 		if args.debug:
 			warn(f"Warning: --debug mode will write certain credentials to {storage['LOG_PATH']}/{storage['LOG_FILE']}!")
 
@@ -329,7 +326,7 @@ class ArchConfigHandler:
 
 		return path.read_text()
 
-	def _cleanup_config(self, config: Namespace | dict) -> dict[str, Any]:
+	def _cleanup_config(self, config: Namespace | dict[str, Any]) -> dict[str, Any]:
 		clean_args = {}
 		for key, val in config.items():
 			if isinstance(val, dict):
