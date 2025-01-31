@@ -46,38 +46,10 @@ You can modify the included scripts and profiles to create a personalized instal
 - Add post-install scripts to configure your system further.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Follow build and installation tutorials on
 
 https://arcolinuxb.com
+
 
 # Websites
 
@@ -103,11 +75,7 @@ Facebook : https://www.facebook.com/arcolinuxd/
 
 Facebook : https://www.facebook.com/groups/arcolinux/
 
-Flickr   : https://www.flickr.com/photos/arcolinux/
-
-Twitter  : https://twitter.com/arcolinux
-
-Instagram: https://www.instagram.com/arcolinux/
+Bluesky  : https://bsky.app/profile/arcolinux.bsky.social
 
 Linked in: https://www.linkedin.com/in/arcolinux
 
