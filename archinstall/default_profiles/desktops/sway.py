@@ -3,6 +3,7 @@ import shutil
 import archinstall
 from typing import TYPE_CHECKING, override
 
+from archinstall.default_profiles.desktops import SeatAccess
 from archinstall.default_profiles.profile import GreeterType, ProfileType, SelectResult
 from archinstall.default_profiles.xorg import XorgProfile
 from archinstall.lib.models import User
