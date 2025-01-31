@@ -90,6 +90,7 @@ class HyprlandProfile(XorgProfile):
 			'wget',
 			'xdg-desktop-portal',
 			'xdg-user-dirs',
+			'yad',
 			'yay-git',
 			] + [
 			'arcoinstall-system-config-git',
