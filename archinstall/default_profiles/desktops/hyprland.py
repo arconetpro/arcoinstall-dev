@@ -123,6 +123,7 @@ class HyprlandProfile(XorgProfile):
 			'thunar-archive-plugin',
 			'thunar-volman',
 			'ttf-jetbrains-mono-nerd',
+			'uwsm',
 			'waybar-git',
 			'xfce4-terminal',
 		]
