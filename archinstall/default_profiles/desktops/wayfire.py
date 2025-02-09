@@ -91,6 +91,7 @@ class WayfireProfile(XorgProfile):
 			'wget',
 			'xdg-desktop-portal',
 			'xdg-user-dirs',
+			'yad',
 			'yay-git',
 			] + [
 			'arcoinstall-system-config-git',
@@ -106,6 +107,7 @@ class WayfireProfile(XorgProfile):
 			'arcolinux-wayfire-git',
 			'arcolinux-wayland-app-hooks-git',
 			'arconet-xfce',
+			'dex',
 			'file-roller',
 			'foot',
 			'kitty',
@@ -118,6 +120,7 @@ class WayfireProfile(XorgProfile):
 			'picom-git',
 			'polkit-gnome',
 			'pulsemixer',
+			'python-pywal',
 			'rofi-lbonn-wayland',
 			'swaybg',
 			'swayidle',
@@ -136,7 +139,6 @@ class WayfireProfile(XorgProfile):
 			'wf-shell-git',
 			'wl-clipboard',
 			'xfce4-terminal',
-			'yad',
 		]
 
 	@property
@@ -148,8 +150,8 @@ class WayfireProfile(XorgProfile):
 
 	def _ask_seat_access(self) -> None:
 		# need to activate seat service and add to seat group
-		header = str(_('Sway needs access to your seat (collection of hardware devices i.e. keyboard, mouse, etc)'))
-		header += '\n' + str(_('Choose an option to give Sway access to your hardware')) + '\n'
+		header = str(_('Wayfire needs access to your seat (collection of hardware devices i.e. keyboard, mouse, etc)'))
+		header += '\n' + str(_('Choose an option to give Wayfire access to your hardware')) + '\n'
 
 		items = [MenuItem(s.value, value=s) for s in SeatAccess]
 		group = MenuItemGroup(items, sort_items=True)

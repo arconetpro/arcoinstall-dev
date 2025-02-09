@@ -3,7 +3,6 @@ import shutil
 import archinstall
 from typing import TYPE_CHECKING, override
 
-from archinstall.default_profiles.desktops import SeatAccess
 from archinstall.default_profiles.profile import GreeterType, ProfileType, SelectResult
 from archinstall.default_profiles.xorg import XorgProfile
 from archinstall.lib.models import User
@@ -22,11 +21,9 @@ if TYPE_CHECKING:
 	_: Callable[[str], DeferredTranslation]
 
 
-class HyprlandProfile(XorgProfile):
+class NiriProfile(XorgProfile):
 	def __init__(self) -> None:
-		super().__init__('Hyprland', ProfileType.DesktopEnv, description='')
-
-		self.custom_settings = {'seat_access': None}
+		super().__init__('Niri', ProfileType.DesktopEnv, description='a scrollable-tiling wayland compositor')
 
 	@property
 	@override
@@ -96,8 +93,7 @@ class HyprlandProfile(XorgProfile):
 			'arcoinstall-system-config-git',
 			'archlinux-logout-git',
 			'archlinux-tweak-tool-git',
-			'arcolinux-hyprland-git',
-			'arcolinux-kitty-git',
+			'arcolinux-niri-git',
 			'arcolinux-powermenu-git',
 			'arcolinux-pywal-cache-git',
 			'arcolinux-rofi-git',
@@ -106,9 +102,7 @@ class HyprlandProfile(XorgProfile):
 			'arconet-xfce',
 			'dex',
 			'file-roller',
-			'hyprcursor-git',
-			'hyprland-git',
-			'kitty',
+			'niri',
 			'lxappearance',
 			'mako',
 			'micro',
@@ -125,9 +119,8 @@ class HyprlandProfile(XorgProfile):
 			'thunar-archive-plugin',
 			'thunar-volman',
 			'ttf-jetbrains-mono-nerd',
-			'uwsm',
 			'waybar-git',
-			'xfce4-terminal',
+			'xwayland-satellite',
 		]
 
 	@property
@@ -139,8 +132,8 @@ class HyprlandProfile(XorgProfile):
 
 	def _ask_seat_access(self) -> None:
 		# need to activate seat service and add to seat group
-		header = str(_('Hyprland needs access to your seat (collection of hardware devices i.e. keyboard, mouse, etc)'))
-		header += '\n' + str(_('Choose an option to give Hyprland access to your hardware')) + '\n'
+		header = str(_('Niri needs access to your seat (collection of hardware devices i.e. keyboard, mouse, etc)'))
+		header += '\n' + str(_('Choose an option to give Niri access to your hardware')) + '\n'
 
 		items = [MenuItem(s.value, value=s) for s in SeatAccess]
 		group = MenuItemGroup(items, sort_items=True)
