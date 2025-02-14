@@ -109,7 +109,6 @@ class NiriProfile(XorgProfile):
 			'numlockx',
 			'pamixer',
 			'pavucontrol',
-			'picom-git',
 			'polkit-gnome',
 			'pulsemixer',
 			'python-pywal',

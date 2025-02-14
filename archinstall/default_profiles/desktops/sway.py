@@ -119,7 +119,6 @@ class SwayProfile(XorgProfile):
 			'kitty',
 			'micro',
 			'numlockx',
-			'picom-git',
 			'rofi-lbonn-wayland',
 			'thunar',
 			'thunar-archive-plugin',
