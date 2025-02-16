@@ -62,7 +62,6 @@ class CinnamonProfile(XorgProfile):
 			'git',
 			'gvfs',
 			'gvfs-dnssd',
-			'hw-probe',
 			'man-db',
 			'man-pages',
 			'mkinitcpio-firmware',

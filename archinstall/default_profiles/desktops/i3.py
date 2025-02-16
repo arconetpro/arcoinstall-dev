@@ -20,7 +20,7 @@ class I3wmProfile(XorgProfile):
 	def packages(self) -> list[str]:
 		return [
 			'i3-wm',
-			'i3lock',
+			#'i3lock',
 			'i3status',
 			'i3blocks',
 			'xss-lock',
@@ -61,7 +61,6 @@ class I3wmProfile(XorgProfile):
 			'gvfs',
 			'gvfs-dnssd',
 			'gvfs-smb',
-			'hw-probe',
 			'man-db',
 			'man-pages',
 			'mkinitcpio-firmware',

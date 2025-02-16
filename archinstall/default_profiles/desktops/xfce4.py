@@ -56,7 +56,6 @@ class Xfce4Profile(XorgProfile):
 			'git',
 			'gvfs-dnssd',
 			'gvfs-smb',
-			'hw-probe',
 			'man-db',
 			'man-pages',
 			'mkinitcpio-firmware',
