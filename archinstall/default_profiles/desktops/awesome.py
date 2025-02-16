@@ -61,7 +61,6 @@ class AwesomeProfile(XorgProfile):
 			'gvfs',
 			'gvfs-dnssd',
 			'gvfs-smb',
-			'hw-probe',
 			'man-db',
 			'man-pages',
 			'mkinitcpio-firmware',
