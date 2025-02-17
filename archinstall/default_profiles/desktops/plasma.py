@@ -61,7 +61,7 @@ class PlasmaProfile(XorgProfile):
 			'man-db',
 			'man-pages',
 			'mkinitcpio-firmware',
-			'mlocate',
+			'plocate',
 			'mintstick-git',
 			'most',
 			'neofetch',
