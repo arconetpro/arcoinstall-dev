@@ -61,7 +61,7 @@ class BspwmProfile(XorgProfile):
 			'man-pages',
 			'mintstick-git',
 			'mkinitcpio-firmware',
-			'mlocate',
+			'plocate',
 			'most',
 			'neofetch',
 			'noto-fonts',
