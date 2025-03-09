@@ -1,6 +1,6 @@
 import shutil
-
 import archinstall
+
 from typing import TYPE_CHECKING, override
 
 from archinstall.default_profiles.desktops import SeatAccess
@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 
 class HyprlandProfile(XorgProfile):
 	def __init__(self) -> None:
-		super().__init__('Hyprland', ProfileType.DesktopEnv, description='')
+		super().__init__('Hyprland', ProfileType.WindowMgr, description='')
 
 		self.custom_settings = {'seat_access': None}
 
