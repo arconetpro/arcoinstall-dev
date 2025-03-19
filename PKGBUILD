@@ -4,11 +4,11 @@
 # Contributor: demostanis worlds <demostanis@protonmail.com>
 
 pkgname=arcoinstall-dev
-pkgver=3.0.2.1
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="Just another guided/automated Arch Linux installer with a twist"
 arch=(any)
-url="https://github.com/arconetpro/arcoinstall"
+url="https://github.com/arconetpro/arcoinstall-dev"
 license=(GPL3)
 depends=(
   'arch-install-scripts'
