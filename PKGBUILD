@@ -3,12 +3,12 @@
 # Contributor: Anton Hvornum <anton@hvornum.se>
 # Contributor: demostanis worlds <demostanis@protonmail.com>
 
-pkgname=archinstall
-pkgver=3.0.2
+pkgname=arcoinstall-dev
+pkgver=3.0.3
 pkgrel=1
 pkgdesc="Just another guided/automated Arch Linux installer with a twist"
 arch=(any)
-url="https://github.com/archlinux/archinstall"
+url="https://github.com/arconetpro/arcoinstall"
 license=(GPL3)
 depends=(
   'arch-install-scripts'
@@ -47,17 +47,11 @@ conflicts=(python-archinstall archinstall-git)
 replaces=(python-archinstall archinstall-git)
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
-  $pkgname-$pkgver.tar.gz.sig::$url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz.sig
 )
 sha512sums=()
 b2sums=()
-validpgpkeys=('256F73CEEFC6705C6BBAB20E5FBBB32941E3740A') # Anton Hvornum (Torxed) <anton@hvornum.se>
 
-pkgver() {
-  cd $pkgname-$pkgver
 
-  awk '$1 ~ /^__version__/ {gsub("\"", ""); print $3}' archinstall/__init__.py
-}
 
 prepare() {
   cd $pkgname-$pkgver

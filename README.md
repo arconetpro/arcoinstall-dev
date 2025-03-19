@@ -50,6 +50,7 @@ You can modify the included scripts and profiles to create a personalized instal
 
 https://arcolinuxb.com
 
+
 # Websites
 
 Information about ArcoLinux : https://arcolinux.info
