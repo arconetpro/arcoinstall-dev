@@ -39,3 +39,5 @@ requirements.txt
 /.gitconfig
 /actions-runner
 /cmd_output.txt
+src
+pkg
