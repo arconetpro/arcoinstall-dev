@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, override
 from archinstall.default_profiles.profile import GreeterType, ProfileType
 from archinstall.default_profiles.xorg import XorgProfile
 
-srom archinstall.lib.models import User
+srom archinstall.lib.models.users import User
 if TYPE_CHECKING:
 	from archinstall.lib.installer import Installer
 
