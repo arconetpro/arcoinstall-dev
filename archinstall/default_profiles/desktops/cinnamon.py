@@ -98,9 +98,11 @@ class CinnamonProfile(XorgProfile):
 
 	@override
 	def post_install(self, install_session: 'Installer') -> None:
-		users: User | list[User] = archinstall.arguments.get('!users', [])
-		if not isinstance(users, list):
-			users = [users]
+		from archinstall.lib.args import arch_config_handler
+		users: list[User] | None = arch_config_handler.config.users
+
+		if not users:
+		    return
 
 		for user in users:
 			source = install_session.target / "etc" / "skel"

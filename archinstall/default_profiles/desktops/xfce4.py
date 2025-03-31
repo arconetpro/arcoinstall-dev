@@ -88,7 +88,7 @@ class Xfce4Profile(XorgProfile):
 			#'colloid-icon-theme-git',
 			#'flat-remix',
 			#'colloid-nord-icon-theme-git',
-			#'colloid-nord-gtk-theme-git'
+			#'colloid-nord-gtk-theme-git',
 		] + [
 			'arcolinux-sddm-simplicity-git',
 		]
