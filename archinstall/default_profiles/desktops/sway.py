@@ -1,18 +1,19 @@
 import shutil
-
 import archinstall
+
 from typing import TYPE_CHECKING, override
 
 from archinstall.default_profiles.desktops import SeatAccess
 from archinstall.default_profiles.profile import GreeterType, ProfileType, SelectResult
 from archinstall.default_profiles.xorg import XorgProfile
-from archinstall.lib.models import User
-from archinstall.default_profiles.desktops import SeatAccess
 
+from archinstall.lib.models import User
 if TYPE_CHECKING:
 	from archinstall.lib.installer import Installer
 
-from archinstall.tui import Alignment, FrameProperties, MenuItem, MenuItemGroup, ResultType, SelectMenu
+from archinstall.tui.curses_menu import SelectMenu
+from archinstall.tui.menu_item import MenuItem, MenuItemGroup
+from archinstall.tui.types import Alignment, FrameProperties, ResultType
 
 if TYPE_CHECKING:
 	from collections.abc import Callable
@@ -124,7 +125,9 @@ class SwayProfile(XorgProfile):
 			'thunar-volman',
 			'ttf-jetbrains-mono-nerd',
 			'wlroots',
-		] + additional
+		] + additional + [
+			'arcolinux-sddm-simplicity-git',
+		]
 
 	@property
 	@override

@@ -1340,7 +1340,7 @@ msgid " (default)"
 msgstr "(Standard)"
 
 msgid "Press Ctrl+h for help"
-msgstr ""
+msgstr "Drücke Strg+h für Hilfe"
 
 #, fuzzy
 msgid "Choose an option to give Sway access to your hardware"
@@ -1369,14 +1369,14 @@ msgstr "Verschlüsselungspasswort"
 
 #, fuzzy
 msgid "Partition - New"
-msgstr "Partition"
+msgstr "Partition - Neu"
 
 #, fuzzy
 msgid "Filesystem"
 msgstr "Dateisystem ändern"
 
 msgid "Invalid size"
-msgstr ""
+msgstr "Ungültige Größe"
 
 #, fuzzy
 msgid "Start (default: sector {}): "
@@ -1434,7 +1434,7 @@ msgid "Modes"
 msgstr ""
 
 msgid "IP address"
-msgstr ""
+msgstr "IP-Adresse"
 
 #, fuzzy
 msgid "Enter your gateway (router) IP address (leave blank for none)"
@@ -1479,10 +1479,10 @@ msgstr "Profil bearbeiten"
 
 #, fuzzy
 msgid "Confirm password"
-msgstr "Passwort ändern"
+msgstr "Passwort bestätigen"
 
 msgid "The confirmation password did not match, please try again"
-msgstr ""
+msgstr "Das Passwort stimmt nicht überein, bitte versuche es erneut"
 
 #, fuzzy
 msgid "Not a valid directory"
@@ -1534,7 +1534,7 @@ msgid "Select execution mode"
 msgstr "Wählen Sie einen Ausführmodus"
 
 msgid "Press ? for help"
-msgstr ""
+msgstr "Drücke ? für Hilfe"
 
 #, fuzzy
 msgid "Choose an option to give Hyprland access to your hardware"
@@ -1584,4 +1584,138 @@ msgid "User"
 msgstr "Benutzername: "
 
 msgid "The specified configuration will be applied"
+msgstr ""
+
+msgid "Wipe"
+msgstr ""
+
+#, fuzzy
+msgid "Mark/Unmark as XBOOTLDR"
+msgstr "Als bootbar makieren bzw. nicht makieren"
+
+#, fuzzy
+msgid "Loading packages..."
+msgstr "Zusätzliche Pakete"
+
+msgid "Select any packages from the below list that should be installed additionally"
+msgstr ""
+
+#, fuzzy
+msgid "Add a custom repository"
+msgstr "Benutzerdefinierten Spiegelserver hinzufügen"
+
+#, fuzzy
+msgid "Change custom repository"
+msgstr "Benutzerdefinierten Spiegelserver bearbeiten"
+
+#, fuzzy
+msgid "Delete custom repository"
+msgstr "Benutzerdefinierten Spiegelserver löschen"
+
+#, fuzzy
+msgid "Repository name"
+msgstr "Spiegelserver-Region"
+
+#, fuzzy
+msgid "Add a custom server"
+msgstr "Benutzerdefinierten Spiegelserver hinzufügen"
+
+#, fuzzy
+msgid "Change custom server"
+msgstr "Benutzerdefinierten Spiegelserver bearbeiten"
+
+#, fuzzy
+msgid "Delete custom server"
+msgstr "Benutzerdefinierten Spiegelserver löschen"
+
+msgid "Server url"
+msgstr ""
+
+#, fuzzy
+msgid "Select regions"
+msgstr "Signatur-Option auswählen"
+
+#, fuzzy
+msgid "Add custom servers"
+msgstr "Benutzerdefinierten Spiegelserver hinzufügen"
+
+#, fuzzy
+msgid "Add custom repository"
+msgstr "Benutzerdefinierten Spiegelserver hinzufügen"
+
+#, fuzzy
+msgid "Loading mirror regions..."
+msgstr "Spiegelserver-Regionen"
+
+#, fuzzy
+msgid "Mirrors and repositories"
+msgstr "Zus. Repositories"
+
+#, fuzzy
+msgid "Selected mirror regions"
+msgstr "Spiegelserver-Regionen"
+
+#, fuzzy
+msgid "Custom servers"
+msgstr "Benutzerdefinierte Spiegelserver"
+
+#, fuzzy
+msgid "Custom repositories"
+msgstr "Zus. Repositories"
+
+msgid "Only ASCII characters are supported"
+msgstr ""
+
+msgid "Show help"
+msgstr ""
+
+msgid "Exit help"
+msgstr ""
+
+msgid "Preview scroll up"
+msgstr ""
+
+msgid "Preview scroll down"
+msgstr ""
+
+msgid "Move up"
+msgstr ""
+
+msgid "Move down"
+msgstr ""
+
+msgid "Move right"
+msgstr ""
+
+msgid "Move left"
+msgstr ""
+
+msgid "Jump to entry"
+msgstr ""
+
+msgid "Skip selection (if available)"
+msgstr ""
+
+msgid "Reset selection (if available)"
+msgstr ""
+
+#, fuzzy
+msgid "Select on single select"
+msgstr "Signaturprüfungs-Option auswählen"
+
+#, fuzzy
+msgid "Select on multi select"
+msgstr "Bitte wählen Sie eine Zeitzone aus"
+
+msgid "Reset"
+msgstr ""
+
+#, fuzzy
+msgid "Skip selection menu"
+msgstr "Wählen Sie einen Ausführmodus"
+
+msgid "Start search mode"
+msgstr ""
+
+msgid "Exit search mode"
 msgstr ""

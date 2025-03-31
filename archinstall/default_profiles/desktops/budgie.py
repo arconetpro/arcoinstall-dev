@@ -1,12 +1,12 @@
 import shutil
-
 import archinstall
+
 from typing import TYPE_CHECKING, override
 
 from archinstall.default_profiles.profile import GreeterType, ProfileType
 from archinstall.default_profiles.xorg import XorgProfile
-from archinstall.lib.models import User
 
+from archinstall.lib.models import User
 if TYPE_CHECKING:
 	from archinstall.lib.installer import Installer
 
@@ -80,6 +80,8 @@ class BudgieProfile(XorgProfile):
 			] + [
 			'arcoinstall-system-config-git',
 			'archlinux-tweak-tool-git',
+		] + [
+			'arcolinux-sddm-simplicity-git',
 		]
 
 	@override

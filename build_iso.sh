@@ -46,6 +46,7 @@ packages=(
 	python-pyparted
 	arcolinux-keyring
 	arcolinux-mirrorlist-git
+	arcoinstall-dev
 	#chaotic-keyring
 	#chaotic-mirrorlist
 )
@@ -57,16 +58,6 @@ cat <<- _EOF_ | tee /tmp/archlive/airootfs/root/.zprofile
 	echo
 	alias be="loadkeys be-latin1"
 	alias arch="archinstall --advanced"
-
-	cd archinstall-git
-	rm -rf dist
-
-	python -m build --wheel --no-isolation
-	pip install dist/archinstall*.whl --break-system-packages
-
-	echo "This is an unofficial ISO for development and testing of archinstall. No support will be provided."
-	echo "This ISO was built from Git SHA $GITHUB_SHA"
-	echo "Type archinstall to launch the installer."
 _EOF_
 
 pacman --noconfirm -S archiso

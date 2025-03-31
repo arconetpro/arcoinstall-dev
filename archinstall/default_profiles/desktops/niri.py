@@ -1,6 +1,6 @@
 import shutil
-
 import archinstall
+
 from typing import TYPE_CHECKING, override
 
 from archinstall.default_profiles.profile import GreeterType, ProfileType, SelectResult
@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 class NiriProfile(XorgProfile):
 	def __init__(self) -> None:
-		super().__init__('Niri', ProfileType.DesktopEnv, description='a scrollable-tiling wayland compositor')
+		super().__init__('Niri', ProfileType.WindowMgr, description='a scrollable-tiling wayland compositor')
 
 	@property
 	@override
@@ -119,6 +119,8 @@ class NiriProfile(XorgProfile):
 			'ttf-jetbrains-mono-nerd',
 			'waybar-git',
 			'xwayland-satellite',
+		] + [
+			'arcolinux-sddm-simplicity-git',
 		]
 
 	@property
