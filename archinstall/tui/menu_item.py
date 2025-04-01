@@ -89,7 +89,7 @@ class MenuItemGroup:
 			raise ValueError('Selected item not in menu')
 
 		self.menu_items: list[MenuItem] = menu_items
-		self.focus_item: MenuItem = focus_item
+		self.focus_item: MenuItem | None = focus_item
 		self.selected_items: list[MenuItem] = []
 		self.default_item: MenuItem | None = default_item
 
