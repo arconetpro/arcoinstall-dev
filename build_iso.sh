@@ -47,8 +47,8 @@ packages=(
 	arcolinux-keyring
 	arcolinux-mirrorlist-git
 	arcoinstall-dev
-	#chaotic-keyring
-	#chaotic-mirrorlist
+	chaotic-keyring
+	chaotic-mirrorlist
 )
 
 mkdir -p /tmp/archlive/airootfs/root/archinstall-git
